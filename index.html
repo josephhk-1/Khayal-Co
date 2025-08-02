@@ -22,7 +22,7 @@
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
             transition: background-color 0.5s ease, color 0.5s ease;
-            cursor: none; /* Cache le curseur par défaut */
+            /* Le curseur est géré par JS pour être désactivé sur mobile */
         }
         .font-cairo {
             font-family: 'Cairo', sans-serif;
@@ -89,36 +89,41 @@
 
         ::-webkit-scrollbar { width: 0px; background: transparent; }
 
-        /* ====== Styles du Curseur Personnalisé ====== */
-        #custom-cursor {
-            position: fixed;
-            width: 12px;
-            height: 12px;
-            background-color: var(--accent-color);
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border 0.3s ease;
-            z-index: 9999;
-        }
-        #custom-cursor.hover {
-            width: 40px;
-            height: 40px;
-            background-color: transparent;
-            border: 2px solid var(--accent-color);
+        /* ====== Styles du Curseur Personnalisé (pour Desktop) ====== */
+        @media (pointer: fine) {
+            body {
+                cursor: none;
+            }
+            #custom-cursor {
+                position: fixed;
+                width: 12px;
+                height: 12px;
+                background-color: var(--accent-color);
+                border-radius: 50%;
+                pointer-events: none;
+                transform: translate(-50%, -50%);
+                transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border 0.3s ease;
+                z-index: 9999;
+            }
+            #custom-cursor.hover {
+                width: 40px;
+                height: 40px;
+                background-color: transparent;
+                border: 2px solid var(--accent-color);
+            }
         }
     </style>
 </head>
 <body class="overflow-x-hidden">
 
-    <!-- Curseur Personnalisé -->
+    <!-- Curseur Personnalisé (ne s'affichera que sur desktop) -->
     <div id="custom-cursor"></div>
 
     <div id="app" class="w-full">
         
         <header class="absolute top-0 left-0 w-full z-50 p-4 md:p-6 flex justify-between items-center">
             <div>
-                <h2 class="text-2xl font-bold">Khayal & Co.</h2>
+                <h2 class="text-xl md:text-2xl font-bold">Khayal & Co.</h2>
             </div>
             <div class="flex items-center space-x-2 md:space-x-4 bg-secondary/50 backdrop-blur-sm p-2 rounded-full border border-custom">
                 <button id="theme-toggle" class="p-2 rounded-full text-secondary hover:bg-gray-500/20 transition-colors">
@@ -126,22 +131,22 @@
                     <i id="theme-toggle-light-icon" data-lucide="sun" class="w-5 h-5"></i>
                 </button>
                 <div class="flex items-center space-x-1">
-                    <button onclick="changeLanguage('fr')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-3 py-1 rounded-full" data-lang-id="fr">FR</button>
-                    <button onclick="changeLanguage('en')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-3 py-1 rounded-full" data-lang-id="en">EN</button>
-                    <button onclick="changeLanguage('ar')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-3 py-1 rounded-full" data-lang-id="ar">AR</button>
+                    <button onclick="changeLanguage('fr')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-2 md:px-3 py-1 rounded-full" data-lang-id="fr">FR</button>
+                    <button onclick="changeLanguage('en')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-2 md:px-3 py-1 rounded-full" data-lang-id="en">EN</button>
+                    <button onclick="changeLanguage('ar')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-2 md:px-3 py-1 rounded-full" data-lang-id="ar">AR</button>
                 </div>
             </div>
         </header>
 
-        <section class="min-h-screen flex items-center justify-center text-center overflow-hidden relative px-4 pt-32 fade-in-section">
-            <div id="blur-circle-1" class="absolute -top-1/4 -left-1/4 w-1/2 h-1/2 bg-blue-500/10 dark:bg-blue-500/20 rounded-full filter blur-3xl animate-pulse transition-transform duration-500 ease-out"></div>
-            <div id="blur-circle-2" class="absolute -bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-full filter blur-3xl animate-pulse animation-delay-4000 transition-transform duration-500 ease-out"></div>
+        <section class="min-h-screen flex items-center justify-center text-center overflow-hidden relative px-4 pt-32 pb-16">
+            <div id="blur-circle-1" class="absolute -top-1/4 -left-1/4 w-3/4 h-3/4 md:w-1/2 md:h-1/2 bg-blue-500/10 dark:bg-blue-500/20 rounded-full filter blur-3xl animate-pulse transition-transform duration-500 ease-out"></div>
+            <div id="blur-circle-2" class="absolute -bottom-1/4 -right-1/4 w-3/4 h-3/4 md:w-1/2 md:h-1/2 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-full filter blur-3xl animate-pulse animation-delay-4000 transition-transform duration-500 ease-out"></div>
             
             <div class="z-10">
-                <h1 data-lang="hero_title" class="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-tight">
+                <h1 data-lang="hero_title" class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-tight">
                     L'identité numérique,<br>réinventée.
                 </h1>
-                <p data-lang="hero_subtitle" class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-secondary">
+                <p data-lang="hero_subtitle" class="mt-6 max-w-2xl mx-auto text-base md:text-xl text-secondary">
                     Je conçois des expériences digitales uniques qui transforment votre présence en ligne. Cartes de visite, portfolios et stratégies sur mesure pour marquer les esprits.
                 </p>
                 <div class="mt-12">
@@ -505,6 +510,10 @@
 
         // --- Logique pour les effets interactifs ---
         function setupInteractiveEffects() {
+            // Détecte si l'appareil est tactile. Si c'est le cas, ne lance pas les effets de curseur.
+            const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+            if (isTouchDevice) return;
+
             const cursor = document.getElementById('custom-cursor');
             const interactiveElements = document.querySelectorAll('a, button');
 
