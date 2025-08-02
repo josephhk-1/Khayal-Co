@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démarrer un Projet - Khayal & Co.</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.5s ease, color 0.5s ease, opacity 0.5s ease-in-out;
+            opacity: 0; /* Pour l'effet de transition */
+        }
+        body.fade-in { opacity: 1; }
+        .font-cairo { font-family: 'Cairo', sans-serif; }
+        
+        :root {
+            --bg-main: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --border-color: #e9ecef;
+            --accent-color: #00aaff;
+            --gold-color: #d4af37;
+        }
+
+        html.dark {
+            --bg-main: #1a1a1a;
+            --bg-secondary: #2c2c2e;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --border-color: #3a3a3c;
+        }
+        
+        body { background-color: var(--bg-main); color: var(--text-primary); }
+        .bg-secondary { background-color: var(--bg-secondary); }
+        .text-secondary { color: var(--text-secondary); }
+        .border-custom { border-color: var(--border-color); }
+        .accent-text { color: var(--accent-color); }
+        
+        .input-focus:focus { border-color: var(--accent-color); --tw-ring-color: var(--accent-color); }
+        .link-hover:hover { color: var(--text-primary); }
+        html.dark .link-hover:hover { color: #ffffff; }
+
+        /* Style pour les radio buttons custom */
+        .custom-radio input:checked + label {
+            border-color: var(--accent-color);
+            background-color: rgba(0, 170, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <div id="app" class="w-full">
+        
+        <header class="absolute top-0 left-0 w-full z-50 p-4 md:p-6 flex justify-between items-center">
+            <div>
+                <h2 class="text-xl md:text-2xl font-bold">Khayal & Co.</h2>
+            </div>
+            <!-- Bouton Retour -->
+            <a href="index.html" id="return-link" class="flex items-center space-x-2 text-secondary link-hover transition-colors">
+                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                <span class="hidden md:inline">Retour</span>
+            </a>
+        </header>
+
+        <main class="px-4 py-32">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-black uppercase">Démarrons votre projet</h1>
+                    <p class="mt-4 text-secondary max-w-xl mx-auto">Ce questionnaire nous aidera à mieux comprendre votre vision. Plus vos réponses sont détaillées, mieux nous pourrons vous servir.</p>
+                </div>
+
+                <!-- Message d'erreur pour l'email -->
+                <div id="email-error" class="hidden bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-lg mb-6 text-center">
+                    <p>Veuillez utiliser une adresse e-mail valide (Gmail, Outlook, Yahoo, iCloud).</p>
+                </div>
+
+                <form id="project-form" action="https://formspree.io/f/xvgqbrve" method="POST" class="space-y-10">
+                    
+                    <!-- Section 1: Infos Contact -->
+                    <fieldset class="space-y-6">
+                        <legend class="text-2xl font-bold border-b border-custom pb-2 mb-4">1. Vos Coordonnées</legend>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="firstname" class="block text-sm font-medium text-secondary mb-2">Prénom</label>
+                                <input type="text" name="firstname" id="firstname" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 input-focus transition">
+                            </div>
+                            <div>
+                                <label for="lastname" class="block text-sm font-medium text-secondary mb-2">Nom</label>
+                                <input type="text" name="lastname" id="lastname" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 input-focus transition">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-secondary mb-2">Email Professionnel</label>
+                            <input type="email" name="email" id="email" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 input-focus transition">
+                        </div>
+                        <div>
+                            <label for="country" class="block text-sm font-medium text-secondary mb-2">Pays</label>
+                            <select name="country" id="country" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 input-focus transition">
+                                <option value="">Sélectionnez votre pays...</option>
+                                <option value="France">France</option>
+                                <option value="Maroc">Maroc</option>
+                                <option value="Algérie">Algérie</option>
+                                <option value="Tunisie">Tunisie</option>
+                                <option value="Canada">Canada</option>
+                                <option value="Belgique">Belgique</option>
+                                <option value="Suisse">Suisse</option>
+                                <option value="Égypte">Égypte</option>
+                                <option value="Autre">Autre (précisez dans le message)</option>
+                            </select>
+                        </div>
+                    </fieldset>
+
+                    <!-- Section 2: Type de Projet -->
+                    <fieldset class="space-y-4">
+                        <legend class="text-2xl font-bold border-b border-custom pb-2 mb-4">2. Quel est votre besoin ?</legend>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="custom-radio">
+                                <input type="radio" id="service-card" name="service_type" value="Carte de Visite Digitale" class="hidden">
+                                <label for="service-card" class="block bg-secondary border-2 border-custom rounded-lg p-4 text-center cursor-pointer transition">Carte de Visite</label>
+                            </div>
+                            <div class="custom-radio">
+                                <input type="radio" id="service-portfolio" name="service_type" value="Portfolio sur Mesure" class="hidden">
+                                <label for="service-portfolio" class="block bg-secondary border-2 border-custom rounded-lg p-4 text-center cursor-pointer transition">Portfolio Web</label>
+                            </div>
+                            <div class="custom-radio">
+                                <input type="radio" id="service-strategy" name="service_type" value="Stratégie Digitale" class="hidden">
+                                <label for="service-strategy" class="block bg-secondary border-2 border-custom rounded-lg p-4 text-center cursor-pointer transition">Stratégie Digitale</label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Section 3: Détails du Projet -->
+                    <fieldset class="space-y-6">
+                        <legend class="text-2xl font-bold border-b border-custom pb-2 mb-4">3. Parlez-nous de votre vision</legend>
+                        <div>
+                            <label for="project-description" class="block text-sm font-medium text-secondary mb-2">Décrivez votre projet et vos objectifs.</label>
+                            <textarea name="project-description" id="project-description" rows="6" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 input-focus transition"></textarea>
+                        </div>
+                    </fieldset>
+
+                    <div class="text-center pt-6">
+                        <button type="submit" class="bg-blue-600 text-white font-bold text-lg px-12 py-4 rounded-lg hover:bg-blue-700 transition-colors w-full md:w-auto">
+                            Envoyer ma demande
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            document.body.classList.add('fade-in');
+
+            // --- Logique de validation de l'email ---
+            const form = document.getElementById('project-form');
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('email-error');
+            const validDomains = ['gmail.com', 'outlook.com', 'yahoo.com', 'icloud.com'];
+
+            form.addEventListener('submit', function(e) {
+                const emailValue = emailInput.value.toLowerCase();
+                const domain = emailValue.split('@')[1];
+
+                if (!domain || !validDomains.includes(domain)) {
+                    e.preventDefault();
+                    emailError.classList.remove('hidden');
+                    emailInput.focus();
+                } else {
+                    emailError.classList.add('hidden');
+                }
+            });
+
+            // --- Logique de transition de page ---
+            const returnLink = document.getElementById('return-link');
+            returnLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.body.classList.remove('fade-in');
+                setTimeout(() => {
+                    window.location.href = this.href;
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
