@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Démarrer un Projet - Khayal & Co.</title>
+    <title data-lang="page_title">Démarrer un Projet - Khayal & Co.</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,26 +15,17 @@
         body {
             font-family: 'Inter', sans-serif;
             transition: background-color 0.5s ease, color 0.5s ease, opacity 0.5s ease-in-out;
-            opacity: 0; /* Pour l'effet de transition */
+            opacity: 0;
         }
         body.fade-in { opacity: 1; }
         .font-cairo { font-family: 'Cairo', sans-serif; }
         
         :root {
-            --bg-main: #f8f9fa;
-            --bg-secondary: #ffffff;
-            --text-primary: #212529;
-            --text-secondary: #6c757d;
-            --border-color: #e9ecef;
-            --accent-color: #00aaff;
-            --gold-color: #d4af37;
+            --bg-main: #f8f9fa; --bg-secondary: #ffffff; --text-primary: #212529; --text-secondary: #6c757d;
+            --border-color: #e9ecef; --accent-color: #00aaff; --gold-color: #d4af37;
         }
-
         html.dark {
-            --bg-main: #1a1a1a;
-            --bg-secondary: #2c2c2e;
-            --text-primary: #f0f0f0;
-            --text-secondary: #a0a0a0;
+            --bg-main: #1a1a1a; --bg-secondary: #2c2c2e; --text-primary: #f0f0f0; --text-secondary: #a0a0a0;
             --border-color: #3a3a3c;
         }
         
@@ -48,7 +39,6 @@
         .link-hover:hover { color: var(--text-primary); }
         html.dark .link-hover:hover { color: #ffffff; }
 
-        /* Style pour les cartes de service (le "carrousel") */
         .service-card input:checked + label {
             border-color: var(--accent-color);
             background-color: rgba(0, 170, 255, 0.1);
@@ -67,100 +57,93 @@
             <div>
                 <h2 class="text-xl md:text-2xl font-bold">Khayal & Co.</h2>
             </div>
-            <!-- Bouton Retour -->
-            <a href="index.html" id="return-link" class="flex items-center space-x-2 text-secondary link-hover transition-colors">
-                <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                <span class="hidden md:inline">Retour</span>
-            </a>
+            <div class="flex items-center space-x-2">
+                <a href="index.html" id="return-link" class="flex items-center space-x-2 text-secondary link-hover transition-colors">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    <span data-lang="return_button" class="hidden md:inline">Retour</span>
+                </a>
+                <div class="flex items-center space-x-1 bg-secondary/50 backdrop-blur-sm p-2 rounded-full border border-custom">
+                    <button onclick="changeLanguage('fr')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-2 md:px-3 py-1 rounded-full" data-lang-id="fr">FR</button>
+                    <button onclick="changeLanguage('en')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-2 md:px-3 py-1 rounded-full" data-lang-id="en">EN</button>
+                    <button onclick="changeLanguage('ar')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-2 md:px-3 py-1 rounded-full" data-lang-id="ar">AR</button>
+                </div>
+            </div>
         </header>
 
         <main class="px-4 py-32">
             <div class="max-w-3xl mx-auto">
                 <div class="text-center mb-12">
-                    <h1 class="text-4xl md:text-6xl font-black uppercase">Démarrons votre projet</h1>
-                    <p class="mt-4 text-secondary max-w-xl mx-auto">Ce questionnaire nous aidera à mieux comprendre votre vision. Plus vos réponses sont détaillées, mieux nous pourrons vous servir.</p>
+                    <h1 data-lang="form_title" class="text-4xl md:text-6xl font-black uppercase">Démarrons votre projet</h1>
+                    <p data-lang="form_subtitle" class="mt-4 text-secondary max-w-xl mx-auto">Ce questionnaire nous aidera à mieux comprendre votre vision. Plus vos réponses sont détaillées, mieux nous pourrons vous servir.</p>
                 </div>
 
-                <!-- Message d'erreur pour l'email -->
                 <div id="email-error" class="hidden bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-lg mb-6 text-center">
-                    <p>Veuillez utiliser une adresse e-mail valide (Gmail, Outlook, Yahoo, iCloud).</p>
+                    <p data-lang="email_error_msg">Veuillez utiliser une adresse e-mail valide (Gmail, Outlook, Yahoo, iCloud).</p>
                 </div>
 
                 <form id="project-form" action="https://formspree.io/f/xvgqbrve" method="POST" class="space-y-10">
                     
-                    <!-- Section 1: Infos Contact -->
                     <fieldset class="space-y-6">
-                        <legend class="text-2xl font-bold border-b border-custom pb-2 mb-4">1. Vos Coordonnées</legend>
+                        <legend data-lang="section1_title" class="text-2xl font-bold border-b border-custom pb-2 mb-4">1. Vos Coordonnées</legend>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="firstname" class="block text-sm font-medium text-secondary mb-2">Prénom</label>
+                                <label for="firstname" data-lang="label_firstname" class="block text-sm font-medium text-secondary mb-2">Prénom</label>
                                 <input type="text" name="firstname" id="firstname" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 input-focus transition">
                             </div>
                             <div>
-                                <label for="lastname" class="block text-sm font-medium text-secondary mb-2">Nom</label>
+                                <label for="lastname" data-lang="label_lastname" class="block text-sm font-medium text-secondary mb-2">Nom</label>
                                 <input type="text" name="lastname" id="lastname" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 input-focus transition">
                             </div>
                         </div>
                         <div>
-                            <label for="email" class="block text-sm font-medium text-secondary mb-2">Email Professionnel</label>
+                            <label for="email" data-lang="label_email" class="block text-sm font-medium text-secondary mb-2">Email Professionnel</label>
                             <input type="email" name="email" id="email" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 input-focus transition">
                         </div>
                         <div>
-                            <label for="country" class="block text-sm font-medium text-secondary mb-2">Pays</label>
+                            <label for="country" data-lang="label_country" class="block text-sm font-medium text-secondary mb-2">Pays</label>
                             <select name="country" id="country" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 input-focus transition">
-                                <option value="">Sélectionnez votre pays...</option>
-                                <option value="France">France</option>
-                                <option value="Maroc">Maroc</option>
-                                <option value="Algérie">Algérie</option>
-                                <option value="Tunisie">Tunisie</option>
-                                <option value="Canada">Canada</option>
-                                <option value="Belgique">Belgique</option>
-                                <option value="Suisse">Suisse</option>
-                                <option value="Égypte">Égypte</option>
-                                <option value="Autre">Autre (précisez dans le message)</option>
+                                <!-- Options injectées par JS -->
                             </select>
                         </div>
                     </fieldset>
 
-                    <!-- Section 2: Type de Projet (Carrousel de cartes) -->
                     <fieldset class="space-y-4">
-                        <legend class="text-2xl font-bold border-b border-custom pb-2 mb-4">2. Quel est votre besoin ?</legend>
+                        <legend data-lang="section2_title" class="text-2xl font-bold border-b border-custom pb-2 mb-4">2. Quel est votre besoin ?</legend>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div class="service-card">
                                 <input type="radio" id="service-card" name="service_type" value="Carte de Visite Digitale" class="hidden">
                                 <label for="service-card" class="flex flex-col items-center justify-center bg-secondary border-2 border-custom rounded-lg p-6 cursor-pointer h-full">
                                     <i data-lucide="smartphone" class="w-10 h-10 accent-text mb-3"></i>
-                                    <span class="font-bold">Carte de Visite</span>
+                                    <span data-lang="service_card" class="font-bold">Carte de Visite</span>
                                 </label>
                             </div>
                             <div class="service-card">
                                 <input type="radio" id="service-portfolio" name="service_type" value="Portfolio sur Mesure" class="hidden">
                                 <label for="service-portfolio" class="flex flex-col items-center justify-center bg-secondary border-2 border-custom rounded-lg p-6 cursor-pointer h-full">
                                     <i data-lucide="layout-template" class="w-10 h-10 accent-text mb-3"></i>
-                                    <span class="font-bold">Portfolio Web</span>
+                                    <span data-lang="service_portfolio" class="font-bold">Portfolio Web</span>
                                 </label>
                             </div>
                             <div class="service-card">
                                 <input type="radio" id="service-strategy" name="service_type" value="Stratégie Digitale" class="hidden">
                                 <label for="service-strategy" class="flex flex-col items-center justify-center bg-secondary border-2 border-custom rounded-lg p-6 cursor-pointer h-full">
                                     <i data-lucide="trending-up" class="w-10 h-10 accent-text mb-3"></i>
-                                    <span class="font-bold">Stratégie Digitale</span>
+                                    <span data-lang="service_strategy" class="font-bold">Stratégie Digitale</span>
                                 </label>
                             </div>
                         </div>
                     </fieldset>
 
-                    <!-- Section 3: Détails du Projet -->
                     <fieldset class="space-y-6">
-                        <legend class="text-2xl font-bold border-b border-custom pb-2 mb-4">3. Parlez-nous de votre vision</legend>
+                        <legend data-lang="section3_title" class="text-2xl font-bold border-b border-custom pb-2 mb-4">3. Parlez-nous de votre vision</legend>
                         <div>
-                            <label for="project-description" class="block text-sm font-medium text-secondary mb-2">Décrivez votre projet et vos objectifs.</label>
+                            <label for="project-description" data-lang="label_vision" class="block text-sm font-medium text-secondary mb-2">Décrivez votre projet et vos objectifs.</label>
                             <textarea name="project-description" id="project-description" rows="6" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 input-focus transition"></textarea>
                         </div>
                     </fieldset>
 
                     <div class="text-center pt-6">
-                        <button type="submit" class="bg-blue-600 text-white font-bold text-lg px-12 py-4 rounded-lg hover:bg-blue-700 transition-colors w-full md:w-auto">
+                        <button type="submit" data-lang="submit_button" class="bg-blue-600 text-white font-bold text-lg px-12 py-4 rounded-lg hover:bg-blue-700 transition-colors w-full md:w-auto">
                             Envoyer ma demande
                         </button>
                     </div>
@@ -170,11 +153,121 @@
     </div>
 
     <script>
+        const translations = {
+            fr: {
+                page_title: "Démarrer un Projet - Khayal & Co.",
+                return_button: "Retour",
+                form_title: "Démarrons votre projet",
+                form_subtitle: "Ce questionnaire nous aidera à mieux comprendre votre vision. Plus vos réponses sont détaillées, mieux nous pourrons vous servir.",
+                email_error_msg: "Veuillez utiliser une adresse e-mail valide (Gmail, Outlook, Yahoo, iCloud).",
+                section1_title: "1. Vos Coordonnées",
+                label_firstname: "Prénom",
+                label_lastname: "Nom",
+                label_email: "Email Professionnel",
+                label_country: "Pays",
+                country_placeholder: "Sélectionnez votre pays...",
+                section2_title: "2. Quel est votre besoin ?",
+                service_card: "Carte de Visite",
+                service_portfolio: "Portfolio Web",
+                service_strategy: "Stratégie Digitale",
+                section3_title: "3. Parlez-nous de votre vision",
+                label_vision: "Décrivez votre projet et vos objectifs.",
+                submit_button: "Envoyer ma demande",
+            },
+            en: {
+                page_title: "Start a Project - Khayal & Co.",
+                return_button: "Back",
+                form_title: "Let's start your project",
+                form_subtitle: "This questionnaire will help us better understand your vision. The more detailed your answers, the better we can serve you.",
+                email_error_msg: "Please use a valid email address (Gmail, Outlook, Yahoo, iCloud).",
+                section1_title: "1. Your Contact Information",
+                label_firstname: "First Name",
+                label_lastname: "Last Name",
+                label_email: "Professional Email",
+                label_country: "Country",
+                country_placeholder: "Select your country...",
+                section2_title: "2. What is your need?",
+                service_card: "Digital Card",
+                service_portfolio: "Web Portfolio",
+                service_strategy: "Digital Strategy",
+                section3_title: "3. Tell us about your vision",
+                label_vision: "Describe your project and your goals.",
+                submit_button: "Send my request",
+            },
+            ar: {
+                page_title: "ابدأ مشروعًا - خيال وشركاه",
+                return_button: "رجوع",
+                form_title: "لنبدأ مشروعك",
+                form_subtitle: "سيساعدنا هذا الاستبيان على فهم رؤيتك بشكل أفضل. كلما كانت إجاباتك أكثر تفصيلاً، تمكنا من خدمتك بشكل أفضل.",
+                email_error_msg: "الرجاء استخدام عنوان بريد إلكتروني صالح (Gmail, Outlook, Yahoo, iCloud).",
+                section1_title: "١. معلومات الاتصال الخاصة بك",
+                label_firstname: "الاسم الأول",
+                label_lastname: "اسم العائلة",
+                label_email: "البريد الإلكتروني المهني",
+                label_country: "البلد",
+                country_placeholder: "اختر بلدك...",
+                section2_title: "٢. ما هي حاجتك؟",
+                service_card: "بطاقة عمل رقمية",
+                service_portfolio: "ملف أعمال ويب",
+                service_strategy: "استراتيجية رقمية",
+                section3_title: "٣. أخبرنا عن رؤيتك",
+                label_vision: "صف مشروعك وأهدافك.",
+                submit_button: "إرسال طلبي",
+            }
+        };
+
+        const countryOptions = {
+            fr: [ {value: "", text: "Sélectionnez votre pays..."}, {value: "France", text: "France"}, {value: "Maroc", text: "Maroc"}, {value: "Algérie", text: "Algérie"}, {value: "Tunisie", text: "Tunisie"}, {value: "Canada", text: "Canada"}, {value: "Belgique", text: "Belgique"}, {value: "Suisse", text: "Suisse"}, {value: "Égypte", text: "Égypte"}, {value: "Autre", text: "Autre (précisez dans le message)"} ],
+            en: [ {value: "", text: "Select your country..."}, {value: "France", text: "France"}, {value: "Morocco", text: "Morocco"}, {value: "Algeria", text: "Algeria"}, {value: "Tunisia", text: "Tunisia"}, {value: "Canada", text: "Canada"}, {value: "Belgium", text: "Belgium"}, {value: "Switzerland", text: "Switzerland"}, {value: "Egypt", text: "Egypt"}, {value: "Other", text: "Other (specify in message)"} ],
+            ar: [ {value: "", text: "اختر بلدك..."}, {value: "France", text: "فرنسا"}, {value: "Maroc", text: "المغرب"}, {value: "Algérie", text: "الجزائر"}, {value: "Tunisie", text: "تونس"}, {value: "Canada", text: "كندا"}, {value: "Belgique", text: "بلجيكا"}, {value: "Suisse", text: "سويسرا"}, {value: "Égypte", text: "مصر"}, {value: "Autre", text: "أخرى (حدد في الرسالة)"} ]
+        };
+
+        function changeLanguage(lang) {
+            const elements = document.querySelectorAll('[data-lang]');
+            const htmlEl = document.documentElement;
+            
+            elements.forEach(el => {
+                const key = el.getAttribute('data-lang');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            document.title = translations[lang].page_title;
+
+            const countrySelect = document.getElementById('country');
+            countrySelect.innerHTML = '';
+            countryOptions[lang].forEach(optionData => {
+                const option = document.createElement('option');
+                option.value = optionData.value;
+                option.textContent = optionData.text;
+                countrySelect.appendChild(option);
+            });
+
+            if (lang === 'ar') {
+                htmlEl.setAttribute('dir', 'rtl');
+                document.body.classList.add('font-cairo');
+            } else {
+                htmlEl.setAttribute('dir', 'ltr');
+                document.body.classList.remove('font-cairo');
+            }
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('bg-blue-600', btn.getAttribute('data-lang-id') === lang);
+                btn.classList.toggle('text-white', btn.getAttribute('data-lang-id') === lang);
+            });
+
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             document.body.classList.add('fade-in');
 
-            // --- Logique de validation de l'email ---
+            const urlParams = new URLSearchParams(window.location.search);
+            const langFromUrl = urlParams.get('lang');
+            const savedLang = localStorage.getItem('preferredLanguage') || 'fr';
+            changeLanguage(langFromUrl || savedLang);
+
             const form = document.getElementById('project-form');
             const emailInput = document.getElementById('email');
             const emailError = document.getElementById('email-error');
@@ -193,14 +286,12 @@
                 }
             });
 
-            // --- Logique de transition de page ---
             const returnLink = document.getElementById('return-link');
             returnLink.addEventListener('click', function(e) {
                 e.preventDefault();
                 const destination = this.getAttribute('href');
                 document.body.classList.remove('fade-in');
                 setTimeout(() => {
-                    // FIX: Using location.assign() for better compatibility
                     window.location.assign(destination);
                 }, 500);
             });
