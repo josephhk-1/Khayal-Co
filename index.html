@@ -16,7 +16,7 @@
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
             transition: background-color 0.5s ease, color 0.5s ease, opacity 0.5s ease-in-out;
-            opacity: 0; /* Pour l'effet de transition */
+            opacity: 0;
         }
         body.fade-in { opacity: 1; }
         .font-cairo { font-family: 'Cairo', sans-serif; }
@@ -175,21 +175,21 @@
                 <h2 data-lang="testimonials_title" class="text-4xl md:text-5xl font-bold text-center mb-12">Ils me font confiance</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-secondary p-8 rounded-2xl border border-custom">
-                        <p class="text-secondary italic mb-6">"Le portfolio a dépassé toutes mes attentes. C'est une véritable œuvre d'art digitale qui a boosté ma visibilité."</p>
+                        <p class="text-secondary italic mb-6" data-lang="testimonial1_text">"Le portfolio a dépassé toutes mes attentes. C'est une véritable œuvre d'art digitale qui a boosté ma visibilité."</p>
                         <div class="flex items-center">
                             <img src="https://placehold.co/100x100/1a1a1a/ffffff?text=C1" alt="Client 1" class="w-12 h-12 rounded-full mr-4">
                             <div>
-                                <h4 class="font-bold">Alexandre Dupont</h4>
+                                <h4 class="font-bold" data-lang="client1_name">Alexandre Dupont</h4>
                                 <p class="text-sm text-secondary" data-lang="client1_project">Projet : Portfolio Photographe</p>
                             </div>
                         </div>
                     </div>
                     <div class="bg-secondary p-8 rounded-2xl border border-custom">
-                        <p class="text-secondary italic mb-6">"La carte de visite digitale est incroyable. Simple, efficace et très pro. Mes contacts sont toujours impressionnés !"</p>
+                        <p class="text-secondary italic mb-6" data-lang="testimonial2_text">"La carte de visite digitale est incroyable. Simple, efficace et très pro. Mes contacts sont toujours impressionnés !"</p>
                         <div class="flex items-center">
                             <img src="https://placehold.co/100x100/1a1a1a/00aaff?text=C2" alt="Client 2" class="w-12 h-12 rounded-full mr-4">
                             <div>
-                                <h4 class="font-bold">Fatima Al-Jamil</h4>
+                                <h4 class="font-bold" data-lang="client2_name">Fatima Al-Jamil</h4>
                                 <p class="text-sm text-secondary" data-lang="client2_project">Projet : Carte de visite CEO</p>
                             </div>
                         </div>
@@ -198,12 +198,10 @@
             </div>
         </section>
 
-        <!-- ====== Contact Section MODIFIÉE ====== -->
         <section id="contact" class="py-20 px-4 md:px-8 fade-in-section">
             <div class="max-w-3xl mx-auto text-center">
                 <h2 data-lang="contact_title" class="text-4xl md:text-5xl font-bold mb-4">Prêt à créer ?</h2>
                 <p data-lang="contact_subtitle" class="text-secondary mb-12">Discutons de votre projet. Cliquez ci-dessous pour accéder à notre questionnaire détaillé.</p>
-                <!-- MODIFICATION : Le lien pointe maintenant vers la nouvelle page -->
                 <a href="project-form.html" class="page-transition-link inline-block bg-blue-600 text-white text-xl md:text-2xl font-bold px-12 py-6 rounded-full cta-glow mb-20">
                     <span data-lang="cta_button">Démarrons votre projet</span>
                 </a>
@@ -228,36 +226,117 @@
     </div>
 
     <script>
-        // --- Dictionnaire des traductions ---
         const translations = {
             fr: {
                 hero_title: "L'identité numérique,<br>réinventée.",
                 hero_subtitle: "Je conçois des expériences digitales uniques qui transforment votre présence en ligne. Cartes de visite, portfolios et stratégies sur mesure pour marquer les esprits.",
+                hero_mockup_text: "Votre Identité Interactive",
                 portfolio_title: "Mes Créations",
+                portfolio_subtitle: "Chaque projet est une histoire. Découvrez comment j'ai aidé mes clients à briller dans le monde numérique.",
+                view_project_btn: "Voir le Projet",
+                project1_desc: "Portfolio web immersif pour un artiste photographe.",
+                project2_desc: "Carte de visite digitale avec NFC pour une startup tech.",
+                project3_desc: "Stratégie de contenu et refonte UX pour un site e-commerce.",
+                tag_portfolio: "Portfolio Web",
+                tag_card: "Carte de Visite",
+                tag_strategy: "Stratégie Digitale",
+                services_title: "Mes Services",
+                service1_title: "Cartes de Visite Digitales",
+                service1_desc: "Des cartes interactives, écologiques et inoubliables, équipées de la technologie NFC.",
+                service2_title: "Portfolios sur Mesure",
+                service2_desc: "Un site web unique qui raconte votre histoire et met en valeur votre talent comme jamais.",
+                service3_title: "Stratégie Digitale",
+                service3_desc: "Des conseils et un plan d'action pour optimiser votre impact et atteindre vos objectifs en ligne.",
+                testimonials_title: "Ils me font confiance",
+                testimonial1_text: "\"Le portfolio a dépassé toutes mes attentes. C'est une véritable œuvre d'art digitale qui a boosté ma visibilité.\"",
+                client1_name: "Alexandre Dupont",
+                client1_project: "Projet : Portfolio Photographe",
+                testimonial2_text: "\"La carte de visite digitale est incroyable. Simple, efficace et très pro. Mes contacts sont toujours impressionnés !\"",
+                client2_name: "Fatima Al-Jamil",
+                client2_project: "Projet : Carte de visite CEO",
+                cta_button: "Démarrons votre projet",
+                contact_title: "Prêt à créer ?",
                 contact_subtitle: "Discutons de votre projet. Cliquez ci-dessous pour accéder à notre questionnaire détaillé.",
-                // ... (autres traductions)
+                footer_signature: "Joseph HAMDY KAMAL",
+                footer_rights: "Tous droits réservés.",
+                footer_legal: "Mentions Légales",
             },
             en: {
                 hero_title: "Digital Identity,<br>Reinvented.",
                 hero_subtitle: "I design unique digital experiences that transform your online presence. Custom business cards, portfolios, and strategies to make a lasting impression.",
+                hero_mockup_text: "Your Interactive Identity",
                 portfolio_title: "My Creations",
+                portfolio_subtitle: "Every project tells a story. Discover how I've helped my clients shine in the digital world.",
+                view_project_btn: "View Project",
+                project1_desc: "Immersive web portfolio for a photographer artist.",
+                project2_desc: "NFC-enabled digital business card for a tech startup.",
+                project3_desc: "Content strategy and UX redesign for an e-commerce site.",
+                tag_portfolio: "Web Portfolio",
+                tag_card: "Digital Card",
+                tag_strategy: "Digital Strategy",
+                services_title: "My Services",
+                service1_title: "Digital Business Cards",
+                service1_desc: "Interactive, eco-friendly, and unforgettable cards, equipped with NFC technology.",
+                service2_title: "Tailored Portfolios",
+                service2_desc: "A unique website that tells your story and showcases your talent like never before.",
+                service3_title: "Digital Strategy Consulting",
+                service3_desc: "Advice and an action plan to optimize your impact and achieve your online goals.",
+                testimonials_title: "They Trust Me",
+                testimonial1_text: "\"The portfolio exceeded all my expectations. It's a true piece of digital art that has boosted my visibility.\"",
+                client1_name: "Alexandre Dupont",
+                client1_project: "Project: Photographer Portfolio",
+                testimonial2_text: "\"The digital business card is incredible. Simple, effective, and very professional. My contacts are always impressed!\"",
+                client2_name: "Fatima Al-Jamil",
+                client2_project: "Project: CEO Business Card",
+                cta_button: "Let's start your project",
+                contact_title: "Ready to build?",
                 contact_subtitle: "Let's discuss your project. Click below to access our detailed questionnaire.",
-                // ... (autres traductions)
+                footer_signature: "Joseph HAMDY KAMAL",
+                footer_rights: "All rights reserved.",
+                footer_legal: "Legal Notice",
             },
             ar: {
                 hero_title: "إعادة ابتكار<br>الهوية الرقمية",
                 hero_subtitle: "أصمم تجارب رقمية فريدة تحول وجودك على الإنترنت. بطاقات عمل ومحافظ أعمال واستراتيجيات مخصصة لترك انطباع دائم.",
+                hero_mockup_text: "هويتك التفاعلية",
                 portfolio_title: "أعمالي",
+                portfolio_subtitle: "كل مشروع يحكي قصة. اكتشف كيف ساعدت عملائي على التألق في العالم الرقمي.",
+                view_project_btn: "شاهد المشروع",
+                project1_desc: "ملف أعمال ويب غامر لفنان مصور.",
+                project2_desc: "بطاقة عمل رقمية بتقنية NFC لشركة تقنية ناشئة.",
+                project3_desc: "استراتيجية محتوى وإعادة تصميم تجربة المستخدم لموقع تجارة إلكترونية.",
+                tag_portfolio: "ملف أعمال ويب",
+                tag_card: "بطاقة عمل رقمية",
+                tag_strategy: "استراتيجية رقمية",
+                services_title: "خدماتي",
+                service1_title: "بطاقات العمل الرقمية",
+                service1_desc: "بطاقات تفاعلية، صديقة للبيئة، ولا تُنسى، مزودة بتقنية NFC.",
+                service2_title: "ملفات أعمال مصممة حسب الطلب",
+                service2_desc: "موقع ويب فريد يحكي قصتك ويعرض موهبتك بشكل لم يسبق له مثيل.",
+                service3_title: "الاستشارات الرقمية",
+                service3_desc: "نصائح وخطة عمل لتحسين تأثيرك وتحقيق أهدافك على الإنترنت.",
+                testimonials_title: "يثقون بي",
+                testimonial1_text: "\"لقد تجاوز ملف الأعمال كل توقعاتي. إنها قطعة فنية رقمية حقيقية عززت من ظهوري.\"",
+                client1_name: "ألكسندر دوبون",
+                client1_project: "المشروع: ملف أعمال مصور",
+                testimonial2_text: "\"بطاقة العمل الرقمية لا تصدق. بسيطة وفعالة واحترافية للغاية. دائمًا ما ينبهر بها معارفي!\"",
+                client2_name: "فاطمة الجميل",
+                client2_project: "المشروع: بطاقة عمل مدير تنفيذي",
+                cta_button: "لنبدأ مشروعك الآن",
+                contact_title: "هل أنت مستعد للإنشاء؟",
                 contact_subtitle: "دعنا نناقش مشروعك. انقر أدناه للوصول إلى استبياننا المفصل.",
-                // ... (autres traductions)
+                footer_signature: "جوزيف حمدي كمال",
+                footer_rights: "جميع الحقوق محفوظة.",
+                footer_legal: "إشعار قانوني",
             }
         };
 
-        // --- Logique du changement de langue ---
+        let currentLang = 'fr';
+
         function changeLanguage(lang) {
+            currentLang = lang;
             const elements = document.querySelectorAll('[data-lang]');
             const htmlEl = document.documentElement;
-            const appEl = document.getElementById('app');
             
             elements.forEach(el => {
                 const key = el.getAttribute('data-lang');
@@ -268,59 +347,20 @@
 
             if (lang === 'ar') {
                 htmlEl.setAttribute('dir', 'rtl');
-                appEl.classList.add('font-cairo');
+                document.body.classList.add('font-cairo');
             } else {
                 htmlEl.setAttribute('dir', 'ltr');
-                appEl.classList.remove('font-cairo');
+                document.body.classList.remove('font-cairo');
             }
             
             document.querySelectorAll('.lang-btn').forEach(btn => {
-                const btnLang = btn.getAttribute('data-lang-id');
-                if (btnLang === lang) {
-                    btn.classList.add('bg-blue-600', 'text-white');
-                    btn.classList.remove('text-secondary');
-                } else {
-                    btn.classList.remove('bg-blue-600', 'text-white');
-                    btn.classList.add('text-secondary');
-                }
+                btn.classList.toggle('bg-blue-600', btn.getAttribute('data-lang-id') === lang);
+                btn.classList.toggle('text-white', btn.getAttribute('data-lang-id') === lang);
             });
 
             localStorage.setItem('preferredLanguage', lang);
         }
 
-        // --- Logique pour l'effet 3D des cartes ---
-        const cards = document.querySelectorAll('.project-card');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const { width, height } = rect;
-                const rotateX = (y / height - 0.5) * -15;
-                const rotateY = (x / width - 0.5) * 15;
-                card.style.setProperty('--rotateX', `${rotateX}deg`);
-                card.style.setProperty('--rotateY', `${rotateY}deg`);
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.setProperty('--rotateX', '0deg');
-                card.style.setProperty('--rotateY', '0deg');
-            });
-        });
-
-        // --- Logique pour l'animation au défilement ---
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.fade-in-section').forEach(section => {
-            observer.observe(section);
-        });
-        
-        // --- Logique pour le changement de thème ---
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
@@ -343,7 +383,6 @@
             applyTheme(isDark);
         });
 
-        // --- Logique pour les effets interactifs ---
         function setupInteractiveEffects() {
             const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
             if (isTouchDevice) return;
@@ -383,7 +422,6 @@
             });
         }
 
-        // --- Initialisation au chargement de la page ---
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             
@@ -397,20 +435,20 @@
 
             setupInteractiveEffects();
             
-            // --- Logique de transition de page ---
             document.body.classList.add('fade-in');
 
             const pageLinks = document.querySelectorAll('.page-transition-link');
             pageLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
+                    const destination = `${this.getAttribute('href')}?lang=${currentLang}`;
                     document.body.classList.remove('fade-in');
                     setTimeout(() => {
-                        window.location.href = this.href;
+                        window.location.assign(destination);
                     }, 500);
                 });
             });
         });
     </script>
 </body>
-</html>
+</ht
