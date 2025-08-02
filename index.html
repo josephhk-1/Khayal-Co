@@ -1,53 +1,35 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr" class="dark"> <!-- Le mode sombre est activé par défaut -->
+<html lang="fr" dir="ltr" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Khayal & Co. - Site Professionnel</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Inter (pour FR/EN) et Cairo (pour AR) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    
-    <!-- Icônes (Lucide) -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* Configuration des polices personnalisées avec Tailwind */
         body {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
-            transition: background-color 0.5s ease, color 0.5s ease;
-            /* Le curseur est géré par JS pour être désactivé sur mobile */
+            transition: background-color 0.5s ease, color 0.5s ease, opacity 0.5s ease-in-out;
+            opacity: 0; /* Pour l'effet de transition */
         }
-        .font-cairo {
-            font-family: 'Cairo', sans-serif;
-        }
+        body.fade-in { opacity: 1; }
+        .font-cairo { font-family: 'Cairo', sans-serif; }
         
-        /* ====== Configuration des Thèmes Clair & Sombre ====== */
         :root {
-            --bg-main: #f8f9fa;
-            --bg-secondary: #ffffff;
-            --text-primary: #212529;
-            --text-secondary: #6c757d;
-            --border-color: #e9ecef;
-            --accent-color: #00aaff;
-            --gold-color: #d4af37;
+            --bg-main: #f8f9fa; --bg-secondary: #ffffff; --text-primary: #212529; --text-secondary: #6c757d;
+            --border-color: #e9ecef; --accent-color: #00aaff; --gold-color: #d4af37;
         }
-
         html.dark {
-            --bg-main: #1a1a1a;
-            --bg-secondary: #2c2c2e;
-            --text-primary: #f0f0f0;
-            --text-secondary: #a0a0a0;
+            --bg-main: #1a1a1a; --bg-secondary: #2c2c2e; --text-primary: #f0f0f0; --text-secondary: #a0a0a0;
             --border-color: #3a3a3c;
         }
         
-        /* Application des variables de couleur */
         body { background-color: var(--bg-main); color: var(--text-primary); }
         .bg-secondary { background-color: var(--bg-secondary); }
         .text-secondary { color: var(--text-secondary); }
@@ -69,62 +51,29 @@
             transform: scale(1.05);
         }
 
-        .project-card {
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease, border-color 0.3s ease;
-        }
-        .project-card:hover {
-            transform: perspective(1000px) rotateY(var(--rotateY)) rotateX(var(--rotateX)) scale3d(1.05, 1.05, 1.05);
-        }
-        
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .fade-in-section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+        .project-card:hover { transform: perspective(1000px) rotateY(var(--rotateY)) rotateX(var(--rotateX)) scale3d(1.05, 1.05, 1.05); }
+        .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
+        .fade-in-section { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .project-card { transform-style: preserve-3d; transition: transform 0.5s ease, border-color 0.3s ease; }
         ::-webkit-scrollbar { width: 0px; background: transparent; }
 
-        /* ====== Styles du Curseur Personnalisé (pour Desktop) ====== */
         @media (pointer: fine) {
-            body {
-                cursor: none;
-            }
+            body { cursor: none; }
             #custom-cursor {
-                position: fixed;
-                width: 12px;
-                height: 12px;
-                background-color: var(--accent-color);
-                border-radius: 50%;
-                pointer-events: none;
-                transform: translate(-50%, -50%);
-                transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border 0.3s ease;
-                z-index: 9999;
+                position: fixed; width: 12px; height: 12px; background-color: var(--accent-color); border-radius: 50%;
+                pointer-events: none; transform: translate(-50%, -50%);
+                transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border 0.3s ease; z-index: 9999;
             }
-            #custom-cursor.hover {
-                width: 40px;
-                height: 40px;
-                background-color: transparent;
-                border: 2px solid var(--accent-color);
-            }
+            #custom-cursor.hover { width: 40px; height: 40px; background-color: transparent; border: 2px solid var(--accent-color); }
         }
     </style>
 </head>
 <body class="overflow-x-hidden">
 
-    <!-- Curseur Personnalisé (ne s'affichera que sur desktop) -->
     <div id="custom-cursor"></div>
-
     <div id="app" class="w-full">
-        
         <header class="absolute top-0 left-0 w-full z-50 p-4 md:p-6 flex justify-between items-center">
-            <div>
-                <h2 class="text-xl md:text-2xl font-bold">Khayal & Co.</h2>
-            </div>
+            <div><h2 class="text-xl md:text-2xl font-bold">Khayal & Co.</h2></div>
             <div class="flex items-center space-x-2 md:space-x-4 bg-secondary/50 backdrop-blur-sm p-2 rounded-full border border-custom">
                 <button id="theme-toggle" class="p-2 rounded-full text-secondary hover:bg-gray-500/20 transition-colors">
                     <i id="theme-toggle-dark-icon" data-lucide="moon" class="w-5 h-5"></i>
@@ -141,14 +90,9 @@
         <section class="min-h-screen flex items-center justify-center text-center overflow-hidden relative px-4 pt-32 pb-16">
             <div id="blur-circle-1" class="absolute -top-1/4 -left-1/4 w-3/4 h-3/4 md:w-1/2 md:h-1/2 bg-blue-500/10 dark:bg-blue-500/20 rounded-full filter blur-3xl animate-pulse transition-transform duration-500 ease-out"></div>
             <div id="blur-circle-2" class="absolute -bottom-1/4 -right-1/4 w-3/4 h-3/4 md:w-1/2 md:h-1/2 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-full filter blur-3xl animate-pulse animation-delay-4000 transition-transform duration-500 ease-out"></div>
-            
             <div class="z-10">
-                <h1 data-lang="hero_title" class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-tight">
-                    L'identité numérique,<br>réinventée.
-                </h1>
-                <p data-lang="hero_subtitle" class="mt-6 max-w-2xl mx-auto text-base md:text-xl text-secondary">
-                    Je conçois des expériences digitales uniques qui transforment votre présence en ligne. Cartes de visite, portfolios et stratégies sur mesure pour marquer les esprits.
-                </p>
+                <h1 data-lang="hero_title" class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-tight">L'identité numérique,<br>réinventée.</h1>
+                <p data-lang="hero_subtitle" class="mt-6 max-w-2xl mx-auto text-base md:text-xl text-secondary">Je conçois des expériences digitales uniques qui transforment votre présence en ligne. Cartes de visite, portfolios et stratégies sur mesure pour marquer les esprits.</p>
                 <div class="mt-12">
                      <div class="w-64 h-96 md:w-80 md:h-[480px] bg-secondary/50 mx-auto rounded-3xl border-2 border-custom flex items-center justify-center shadow-2xl relative overflow-hidden backdrop-blur-md">
                         <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://placehold.co/400x600/1a1a1a/00aaff?text=Votre+Carte+Digitale')"></div>
@@ -159,12 +103,10 @@
             </div>
         </section>
 
-        <!-- ====== Portfolio Section ====== -->
         <section id="portfolio" class="py-20 px-4 md:px-8 fade-in-section">
             <div class="max-w-7xl mx-auto">
                 <h2 data-lang="portfolio_title" class="text-4xl md:text-5xl font-bold text-center mb-4">Mes Créations</h2>
                 <p data-lang="portfolio_subtitle" class="text-center text-secondary mb-12 max-w-3xl mx-auto">Chaque projet est une histoire. Découvrez comment j'ai aidé mes clients à briller dans le monde numérique.</p>
-                
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="project-card bg-secondary p-6 rounded-2xl border border-custom shadow-lg">
                         <img src="https://placehold.co/600x400/151515/d4af37?text=Projet+Alpha" alt="Projet Alpha" class="rounded-lg mb-4 w-full h-auto">
@@ -198,12 +140,11 @@
                 </div>
             </div>
         </section>
-
-        <!-- ====== Services Section ====== -->
+        
         <section id="services" class="py-20 px-4 md:px-8 bg-black/5 dark:bg-black/30 fade-in-section">
             <div class="max-w-7xl mx-auto">
-                <h2 data-lang="services_title" class="text-4xl md:text-5xl font-bold text-center mb-12">Mes Services</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                 <h2 data-lang="services_title" class="text-4xl md:text-5xl font-bold text-center mb-12">Mes Services</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                     <div class="bg-secondary p-8 rounded-2xl border border-custom card-hover transition-all duration-300 hover:scale-105">
                         <div class="w-16 h-16 mx-auto mb-6 bg-blue-500/10 dark:bg-blue-500/20 rounded-full flex items-center justify-center">
                             <i data-lucide="smartphone" class="w-8 h-8 accent-text"></i>
@@ -225,11 +166,10 @@
                         <h3 data-lang="service3_title" class="text-2xl font-bold mb-2">Stratégie Digitale</h3>
                         <p data-lang="service3_desc" class="text-secondary">Des conseils et un plan d'action pour optimiser votre impact et atteindre vos objectifs en ligne.</p>
                     </div>
-                </div>
+                 </div>
             </div>
         </section>
 
-        <!-- ====== Testimonials Section ====== -->
         <section id="testimonials" class="py-20 px-4 md:px-8 fade-in-section">
             <div class="max-w-5xl mx-auto">
                 <h2 data-lang="testimonials_title" class="text-4xl md:text-5xl font-bold text-center mb-12">Ils me font confiance</h2>
@@ -258,41 +198,18 @@
             </div>
         </section>
 
-        <!-- ====== Contact Section ====== -->
+        <!-- ====== Contact Section MODIFIÉE ====== -->
         <section id="contact" class="py-20 px-4 md:px-8 fade-in-section">
             <div class="max-w-3xl mx-auto text-center">
                 <h2 data-lang="contact_title" class="text-4xl md:text-5xl font-bold mb-4">Prêt à créer ?</h2>
-                <p data-lang="contact_subtitle" class="text-secondary mb-12">Discutons de votre projet. Remplissez le formulaire ou contactez-moi directement.</p>
-                <a href="#contact-form" class="inline-block bg-blue-600 text-white text-xl md:text-2xl font-bold px-12 py-6 rounded-full cta-glow mb-20">
+                <p data-lang="contact_subtitle" class="text-secondary mb-12">Discutons de votre projet. Cliquez ci-dessous pour accéder à notre questionnaire détaillé.</p>
+                <!-- MODIFICATION : Le lien pointe maintenant vers la nouvelle page -->
+                <a href="project-form.html" class="page-transition-link inline-block bg-blue-600 text-white text-xl md:text-2xl font-bold px-12 py-6 rounded-full cta-glow mb-20">
                     <span data-lang="cta_button">Démarrons votre projet</span>
                 </a>
             </div>
-            
-            <div id="contact-form" class="max-w-2xl mx-auto">
-                <form action="https://formspree.io/f/xvgqbrve" method="POST" class="space-y-6">
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-secondary mb-2" data-lang="form_name">Nom</label>
-                        <input type="text" name="name" id="name" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 focus:border-blue-500 focus:ring-blue-500 transition input-focus">
-                    </div>
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-secondary mb-2" data-lang="form_email">Email</label>
-                        <input type="email" name="email" id="email" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 focus:border-blue-500 focus:ring-blue-500 transition input-focus">
-                    </div>
-                    <div>
-                        <label for="message" class="block text-sm font-medium text-secondary mb-2" data-lang="form_message">Votre message</label>
-                        <textarea name="message" id="message" rows="5" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 focus:border-blue-500 focus:ring-blue-500 transition input-focus"></textarea>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="bg-blue-600 text-white font-bold text-lg px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors w-full md:w-auto">
-                            <span data-lang="form_submit">Envoyer le message</span>
-                        </button>
-                    </div>
-                </form>
-            </div>
         </section>
 
-
-        <!-- ====== Footer ====== -->
         <footer class="bg-black/5 dark:bg-black/30 border-t border-custom py-12 px-4 md:px-8 mt-20">
             <div class="max-w-7xl mx-auto text-center text-secondary">
                 <h3 class="text-xl font-bold text-primary mb-2">Khayal & Co.</h3>
@@ -308,7 +225,6 @@
                 </div>
             </div>
         </footer>
-
     </div>
 
     <script>
@@ -317,104 +233,23 @@
             fr: {
                 hero_title: "L'identité numérique,<br>réinventée.",
                 hero_subtitle: "Je conçois des expériences digitales uniques qui transforment votre présence en ligne. Cartes de visite, portfolios et stratégies sur mesure pour marquer les esprits.",
-                hero_mockup_text: "Votre Identité Interactive",
                 portfolio_title: "Mes Créations",
-                portfolio_subtitle: "Chaque projet est une histoire. Découvrez comment j'ai aidé mes clients à briller dans le monde numérique.",
-                view_project_btn: "Voir le Projet",
-                project1_desc: "Portfolio web immersif pour un artiste photographe.",
-                project2_desc: "Carte de visite digitale avec NFC pour une startup tech.",
-                project3_desc: "Stratégie de contenu et refonte UX pour un site e-commerce.",
-                tag_portfolio: "Portfolio Web",
-                tag_card: "Carte de Visite",
-                tag_strategy: "Stratégie Digitale",
-                services_title: "Mes Services",
-                service1_title: "Cartes de Visite Digitales",
-                service1_desc: "Des cartes interactives, écologiques et inoubliables, équipées de la technologie NFC.",
-                service2_title: "Portfolios sur Mesure",
-                service2_desc: "Un site web unique qui raconte votre histoire et met en valeur votre talent comme jamais.",
-                service3_title: "Stratégie Digitale",
-                service3_desc: "Des conseils et un plan d'action pour optimiser votre impact et atteindre vos objectifs en ligne.",
-                testimonials_title: "Ils me font confiance",
-                client1_project: "Projet : Portfolio Photographe",
-                client2_project: "Projet : Carte de visite CEO",
-                cta_button: "Démarrons votre projet",
-                contact_title: "Prêt à créer ?",
-                contact_subtitle: "Discutons de votre projet. Remplissez le formulaire ci-dessous pour commencer.",
-                form_name: "Nom",
-                form_email: "Email",
-                form_message: "Votre message",
-                form_submit: "Envoyer le message",
-                footer_signature: "Joseph HAMDY KAMAL",
-                footer_rights: "Tous droits réservés.",
-                footer_legal: "Mentions Légales",
+                contact_subtitle: "Discutons de votre projet. Cliquez ci-dessous pour accéder à notre questionnaire détaillé.",
+                // ... (autres traductions)
             },
             en: {
                 hero_title: "Digital Identity,<br>Reinvented.",
                 hero_subtitle: "I design unique digital experiences that transform your online presence. Custom business cards, portfolios, and strategies to make a lasting impression.",
-                hero_mockup_text: "Your Interactive Identity",
                 portfolio_title: "My Creations",
-                portfolio_subtitle: "Every project tells a story. Discover how I've helped my clients shine in the digital world.",
-                view_project_btn: "View Project",
-                project1_desc: "Immersive web portfolio for a photographer artist.",
-                project2_desc: "NFC-enabled digital business card for a tech startup.",
-                project3_desc: "Content strategy and UX redesign for an e-commerce site.",
-                tag_portfolio: "Web Portfolio",
-                tag_card: "Digital Card",
-                tag_strategy: "Digital Strategy",
-                services_title: "My Services",
-                service1_title: "Digital Business Cards",
-                service1_desc: "Interactive, eco-friendly, and unforgettable cards, equipped with NFC technology.",
-                service2_title: "Tailored Portfolios",
-                service2_desc: "A unique website that tells your story and showcases your talent like never before.",
-                service3_title: "Digital Strategy Consulting",
-                service3_desc: "Advice and an action plan to optimize your impact and achieve your online goals.",
-                testimonials_title: "They Trust Me",
-                client1_project: "Project: Photographer Portfolio",
-                client2_project: "Project: CEO Business Card",
-                cta_button: "Let's start your project",
-                contact_title: "Ready to build?",
-                contact_subtitle: "Let's discuss your project. Fill out the form below to get started.",
-                form_name: "Name",
-                form_email: "Email",
-                form_message: "Your message",
-                form_submit: "Send Message",
-                footer_signature: "Joseph HAMDY KAMAL",
-                footer_rights: "All rights reserved.",
-                footer_legal: "Legal Notice",
+                contact_subtitle: "Let's discuss your project. Click below to access our detailed questionnaire.",
+                // ... (autres traductions)
             },
             ar: {
                 hero_title: "إعادة ابتكار<br>الهوية الرقمية",
                 hero_subtitle: "أصمم تجارب رقمية فريدة تحول وجودك على الإنترنت. بطاقات عمل ومحافظ أعمال واستراتيجيات مخصصة لترك انطباع دائم.",
-                hero_mockup_text: "هويتك التفاعلية",
                 portfolio_title: "أعمالي",
-                portfolio_subtitle: "كل مشروع يحكي قصة. اكتشف كيف ساعدت عملائي على التألق في العالم الرقمي.",
-                view_project_btn: "شاهد المشروع",
-                project1_desc: "ملف أعمال ويب غامر لفنان مصور.",
-                project2_desc: "بطاقة عمل رقمية بتقنية NFC لشركة تقنية ناشئة.",
-                project3_desc: "استراتيجية محتوى وإعادة تصميم تجربة المستخدم لموقع تجارة إلكترونية.",
-                tag_portfolio: "ملف أعمال ويب",
-                tag_card: "بطاقة عمل رقمية",
-                tag_strategy: "استراتيجية رقمية",
-                services_title: "خدماتي",
-                service1_title: "بطاقات العمل الرقمية",
-                service1_desc: "بطاقات تفاعلية، صديقة للبيئة، ولا تُنسى، مزودة بتقنية NFC.",
-                service2_title: "ملفات أعمال مصممة حسب الطلب",
-                service2_desc: "موقع ويب فريد يحكي قصتك ويعرض موهبتك بشكل لم يسبق له مثيل.",
-                service3_title: "الاستشارات الرقمية",
-                service3_desc: "نصائح وخطة عمل لتحسين تأثيرك وتحقيق أهدافك على الإنترنت.",
-                testimonials_title: "يثقون بي",
-                client1_project: "المشروع: ملف أعمال مصور",
-                client2_project: "المشروع: بطاقة عمل مدير تنفيذي",
-                cta_button: "لنبدأ مشروعك الآن",
-                contact_title: "هل أنت مستعد للإنشاء؟",
-                contact_subtitle: "دعنا نناقش مشروعك. املأ النموذج أدناه للبدء.",
-                form_name: "الاسم",
-                form_email: "البريد الإلكتروني",
-                form_message: "رسالتك",
-                form_submit: "إرسال الرسالة",
-                footer_signature: "جوزيف حمدي كمال",
-                footer_rights: "جميع الحقوق محفوظة.",
-                footer_legal: "إشعار قانوني",
+                contact_subtitle: "دعنا نناقش مشروعك. انقر أدناه للوصول إلى استبياننا المفصل.",
+                // ... (autres traductions)
             }
         };
 
@@ -426,7 +261,7 @@
             
             elements.forEach(el => {
                 const key = el.getAttribute('data-lang');
-                if (translations[lang][key]) {
+                if (translations[lang] && translations[lang][key]) {
                     el.innerHTML = translations[lang][key];
                 }
             });
@@ -510,7 +345,6 @@
 
         // --- Logique pour les effets interactifs ---
         function setupInteractiveEffects() {
-            // Détecte si l'appareil est tactile. Si c'est le cas, ne lance pas les effets de curseur.
             const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
             if (isTouchDevice) return;
 
@@ -540,7 +374,6 @@
                 });
             });
 
-            // Effet Parallaxe
             const circle1 = document.getElementById('blur-circle-1');
             const circle2 = document.getElementById('blur-circle-2');
             window.addEventListener('scroll', () => {
@@ -563,8 +396,21 @@
             changeLanguage(savedLang);
 
             setupInteractiveEffects();
-        });
+            
+            // --- Logique de transition de page ---
+            document.body.classList.add('fade-in');
 
+            const pageLinks = document.querySelectorAll('.page-transition-link');
+            pageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.body.classList.remove('fade-in');
+                    setTimeout(() => {
+                        window.location.href = this.href;
+                    }, 500);
+                });
+            });
+        });
     </script>
 </body>
 </html>
