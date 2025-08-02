@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="fr" dir="ltr" class="dark"> <!-- Le mode sombre est activé par défaut -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,22 +20,46 @@
         /* Configuration des polices personnalisées avec Tailwind */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #1a1a1a;
-            color: #f0f0f0;
-            scroll-behavior: smooth; /* Pour un défilement fluide */
+            scroll-behavior: smooth;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            cursor: none; /* Cache le curseur par défaut */
         }
         .font-cairo {
             font-family: 'Cairo', sans-serif;
         }
         
-        /* Styles pour les couleurs du thème */
+        /* ====== Configuration des Thèmes Clair & Sombre ====== */
         :root {
-            --bg-color: #1a1a1a;
+            --bg-main: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --border-color: #e9ecef;
             --accent-color: #00aaff;
             --gold-color: #d4af37;
         }
 
-        /* Effet de halo lumineux pour le CTA */
+        html.dark {
+            --bg-main: #1a1a1a;
+            --bg-secondary: #2c2c2e;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --border-color: #3a3a3c;
+        }
+        
+        /* Application des variables de couleur */
+        body { background-color: var(--bg-main); color: var(--text-primary); }
+        .bg-secondary { background-color: var(--bg-secondary); }
+        .text-secondary { color: var(--text-secondary); }
+        .border-custom { border-color: var(--border-color); }
+        .accent-text { color: var(--accent-color); }
+        .gold-text { color: var(--gold-color); }
+        
+        .card-hover:hover { border-color: var(--accent-color); }
+        .input-focus:focus { border-color: var(--accent-color); --tw-ring-color: var(--accent-color); }
+        .link-hover:hover { color: var(--text-primary); }
+        html.dark .link-hover:hover { color: #ffffff; }
+
         .cta-glow {
             box-shadow: 0 0 15px 5px rgba(0, 170, 255, 0.4), 0 0 30px 10px rgba(0, 170, 255, 0.2);
             transition: all 0.3s ease-in-out;
@@ -45,16 +69,14 @@
             transform: scale(1.05);
         }
 
-        /* Style pour l'effet 3D sur les cartes du portfolio */
         .project-card {
             transform-style: preserve-3d;
-            transition: transform 0.5s ease;
+            transition: transform 0.5s ease, border-color 0.3s ease;
         }
         .project-card:hover {
             transform: perspective(1000px) rotateY(var(--rotateY)) rotateX(var(--rotateX)) scale3d(1.05, 1.05, 1.05);
         }
         
-        /* Animation de fondu à l'apparition */
         .fade-in-section {
             opacity: 0;
             transform: translateY(20px);
@@ -65,45 +87,65 @@
             transform: translateY(0);
         }
 
-        /* Masquage de la barre de défilement */
-        ::-webkit-scrollbar {
-            width: 0px;
-            background: transparent;
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+
+        /* ====== Styles du Curseur Personnalisé ====== */
+        #custom-cursor {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border 0.3s ease;
+            z-index: 9999;
+        }
+        #custom-cursor.hover {
+            width: 40px;
+            height: 40px;
+            background-color: transparent;
+            border: 2px solid var(--accent-color);
         }
     </style>
 </head>
-<body class="bg-[#1a1a1a] overflow-x-hidden">
+<body class="overflow-x-hidden">
+
+    <!-- Curseur Personnalisé -->
+    <div id="custom-cursor"></div>
 
     <div id="app" class="w-full">
         
-        <!-- ====== Header / Lang Switcher ====== -->
-        <header class="absolute top-0 left-0 w-full z-50 p-6 flex justify-between items-center">
+        <header class="absolute top-0 left-0 w-full z-50 p-4 md:p-6 flex justify-between items-center">
             <div>
-                <h2 class="text-2xl font-bold text-white">Khayal & Co.</h2>
+                <h2 class="text-2xl font-bold">Khayal & Co.</h2>
             </div>
-            <div class="flex items-center space-x-4 bg-gray-800/50 backdrop-blur-sm p-2 rounded-full">
-                <button onclick="changeLanguage('fr')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-3 py-1 rounded-full bg-blue-500 text-white" data-lang-id="fr">FR</button>
-                <button onclick="changeLanguage('en')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-3 py-1 rounded-full text-gray-300" data-lang-id="en">EN</button>
-                <button onclick="changeLanguage('ar')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-3 py-1 rounded-full text-gray-300" data-lang-id="ar">AR</button>
+            <div class="flex items-center space-x-2 md:space-x-4 bg-secondary/50 backdrop-blur-sm p-2 rounded-full border border-custom">
+                <button id="theme-toggle" class="p-2 rounded-full text-secondary hover:bg-gray-500/20 transition-colors">
+                    <i id="theme-toggle-dark-icon" data-lucide="moon" class="w-5 h-5"></i>
+                    <i id="theme-toggle-light-icon" data-lucide="sun" class="w-5 h-5"></i>
+                </button>
+                <div class="flex items-center space-x-1">
+                    <button onclick="changeLanguage('fr')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-3 py-1 rounded-full" data-lang-id="fr">FR</button>
+                    <button onclick="changeLanguage('en')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-3 py-1 rounded-full" data-lang-id="en">EN</button>
+                    <button onclick="changeLanguage('ar')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-3 py-1 rounded-full" data-lang-id="ar">AR</button>
+                </div>
             </div>
         </header>
 
-        <!-- ====== Hero Section ====== -->
-        <!-- NOTE : Ajout de 'pt-32' pour créer de l'espace pour le header fixe -->
         <section class="min-h-screen flex items-center justify-center text-center overflow-hidden relative px-4 pt-32 fade-in-section">
-            <div class="absolute inset-0 bg-[#1a1a1a] opacity-50 z-0"></div>
-            <div class="absolute -top-1/4 -left-1/4 w-1/2 h-1/2 bg-blue-500/20 rounded-full filter blur-3xl animate-pulse"></div>
-            <div class="absolute -bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-yellow-500/10 rounded-full filter blur-3xl animate-pulse animation-delay-4000"></div>
+            <div id="blur-circle-1" class="absolute -top-1/4 -left-1/4 w-1/2 h-1/2 bg-blue-500/10 dark:bg-blue-500/20 rounded-full filter blur-3xl animate-pulse transition-transform duration-500 ease-out"></div>
+            <div id="blur-circle-2" class="absolute -bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-full filter blur-3xl animate-pulse animation-delay-4000 transition-transform duration-500 ease-out"></div>
             
             <div class="z-10">
-                <h1 data-lang="hero_title" class="text-5xl md:text-7xl lg:text-8xl font-black uppercase text-white tracking-tighter leading-tight">
+                <h1 data-lang="hero_title" class="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-tight">
                     L'identité numérique,<br>réinventée.
                 </h1>
-                <p data-lang="hero_subtitle" class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
+                <p data-lang="hero_subtitle" class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-secondary">
                     Je conçois des expériences digitales uniques qui transforment votre présence en ligne. Cartes de visite, portfolios et stratégies sur mesure pour marquer les esprits.
                 </p>
                 <div class="mt-12">
-                     <div class="w-64 h-96 md:w-80 md:h-[480px] bg-gray-900/50 mx-auto rounded-3xl border-4 border-gray-700 flex items-center justify-center shadow-2xl relative overflow-hidden backdrop-blur-md">
+                     <div class="w-64 h-96 md:w-80 md:h-[480px] bg-secondary/50 mx-auto rounded-3xl border-2 border-custom flex items-center justify-center shadow-2xl relative overflow-hidden backdrop-blur-md">
                         <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://placehold.co/400x600/1a1a1a/00aaff?text=Votre+Carte+Digitale')"></div>
                         <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                         <p class="absolute bottom-4 text-white text-sm font-bold" data-lang="hero_mockup_text">Votre Identité Interactive</p>
@@ -115,36 +157,36 @@
         <!-- ====== Portfolio Section ====== -->
         <section id="portfolio" class="py-20 px-4 md:px-8 fade-in-section">
             <div class="max-w-7xl mx-auto">
-                <h2 data-lang="portfolio_title" class="text-4xl md:text-5xl font-bold text-center mb-4 text-white">Mes Créations</h2>
-                <p data-lang="portfolio_subtitle" class="text-center text-gray-400 mb-12 max-w-3xl mx-auto">Chaque projet est une histoire. Découvrez comment j'ai aidé mes clients à briller dans le monde numérique.</p>
+                <h2 data-lang="portfolio_title" class="text-4xl md:text-5xl font-bold text-center mb-4">Mes Créations</h2>
+                <p data-lang="portfolio_subtitle" class="text-center text-secondary mb-12 max-w-3xl mx-auto">Chaque projet est une histoire. Découvrez comment j'ai aidé mes clients à briller dans le monde numérique.</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="project-card bg-gray-900/40 p-6 rounded-2xl border border-gray-800 shadow-lg">
+                    <div class="project-card bg-secondary p-6 rounded-2xl border border-custom shadow-lg">
                         <img src="https://placehold.co/600x400/151515/d4af37?text=Projet+Alpha" alt="Projet Alpha" class="rounded-lg mb-4 w-full h-auto">
-                        <h3 class="text-2xl font-bold" style="color: var(--gold-color);">Projet Alpha</h3>
-                        <p class="text-gray-400 mt-2 mb-4" data-lang="project1_desc">Portfolio web immersif pour un artiste photographe.</p>
+                        <h3 class="text-2xl font-bold gold-text">Projet Alpha</h3>
+                        <p class="text-secondary mt-2 mb-4" data-lang="project1_desc">Portfolio web immersif pour un artiste photographe.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-blue-500/20 text-blue-300 text-xs font-semibold px-2.5 py-1 rounded-full" data-lang="tag_portfolio">Portfolio Web</span>
-                            <span class="bg-gray-700 text-gray-300 text-xs font-semibold px-2.5 py-1 rounded-full">Framer</span>
+                            <span class="bg-blue-500/20 text-blue-500 dark:text-blue-300 text-xs font-semibold px-2.5 py-1 rounded-full" data-lang="tag_portfolio">Portfolio Web</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs font-semibold px-2.5 py-1 rounded-full">Framer</span>
                         </div>
                         <a href="#" class="inline-block bg-blue-600 text-white font-semibold px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors" data-lang="view_project_btn">Voir le Projet</a>
                     </div>
-                    <div class="project-card bg-gray-900/40 p-6 rounded-2xl border border-gray-800 shadow-lg md:col-span-1 lg:col-span-2">
+                    <div class="project-card bg-secondary p-6 rounded-2xl border border-custom shadow-lg md:col-span-1 lg:col-span-2">
                         <img src="https://placehold.co/800x400/151515/00aaff?text=Projet+Beta" alt="Projet Beta" class="rounded-lg mb-4 w-full h-auto">
-                        <h3 class="text-2xl font-bold" style="color: var(--accent-color);">Projet Beta</h3>
-                        <p class="text-gray-400 mt-2 mb-4" data-lang="project2_desc">Carte de visite digitale avec NFC pour une startup tech.</p>
+                        <h3 class="text-2xl font-bold accent-text">Projet Beta</h3>
+                        <p class="text-secondary mt-2 mb-4" data-lang="project2_desc">Carte de visite digitale avec NFC pour une startup tech.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-blue-500/20 text-blue-300 text-xs font-semibold px-2.5 py-1 rounded-full" data-lang="tag_card">Carte de Visite</span>
-                             <span class="bg-gray-700 text-gray-300 text-xs font-semibold px-2.5 py-1 rounded-full">NFC</span>
+                            <span class="bg-blue-500/20 text-blue-500 dark:text-blue-300 text-xs font-semibold px-2.5 py-1 rounded-full" data-lang="tag_card">Carte de Visite</span>
+                             <span class="bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs font-semibold px-2.5 py-1 rounded-full">NFC</span>
                         </div>
                         <a href="#" class="inline-block bg-blue-600 text-white font-semibold px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors" data-lang="view_project_btn">Voir le Projet</a>
                     </div>
-                    <div class="project-card bg-gray-900/40 p-6 rounded-2xl border border-gray-800 shadow-lg">
+                    <div class="project-card bg-secondary p-6 rounded-2xl border border-custom shadow-lg">
                         <img src="https://placehold.co/600x400/151515/ffffff?text=Projet+Gamma" alt="Projet Gamma" class="rounded-lg mb-4 w-full h-auto">
-                        <h3 class="text-2xl font-bold text-white">Projet Gamma</h3>
-                        <p class="text-gray-400 mt-2 mb-4" data-lang="project3_desc">Stratégie de contenu et refonte UX pour un site e-commerce.</p>
+                        <h3 class="text-2xl font-bold">Projet Gamma</h3>
+                        <p class="text-secondary mt-2 mb-4" data-lang="project3_desc">Stratégie de contenu et refonte UX pour un site e-commerce.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-blue-500/20 text-blue-300 text-xs font-semibold px-2.5 py-1 rounded-full" data-lang="tag_strategy">Stratégie Digitale</span>
+                            <span class="bg-blue-500/20 text-blue-500 dark:text-blue-300 text-xs font-semibold px-2.5 py-1 rounded-full" data-lang="tag_strategy">Stratégie Digitale</span>
                         </div>
                         <a href="#" class="inline-block bg-blue-600 text-white font-semibold px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors" data-lang="view_project_btn">Voir le Projet</a>
                     </div>
@@ -153,30 +195,30 @@
         </section>
 
         <!-- ====== Services Section ====== -->
-        <section id="services" class="py-20 px-4 md:px-8 bg-gray-900/30 fade-in-section">
+        <section id="services" class="py-20 px-4 md:px-8 bg-black/5 dark:bg-black/30 fade-in-section">
             <div class="max-w-7xl mx-auto">
-                <h2 data-lang="services_title" class="text-4xl md:text-5xl font-bold text-center mb-12 text-white">Mes Services</h2>
+                <h2 data-lang="services_title" class="text-4xl md:text-5xl font-bold text-center mb-12">Mes Services</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 hover:border-blue-500 transition-all duration-300 hover:scale-105">
-                        <div class="w-16 h-16 mx-auto mb-6 bg-blue-500/20 rounded-full flex items-center justify-center">
-                            <i data-lucide="smartphone" class="w-8 h-8 text-blue-400"></i>
+                    <div class="bg-secondary p-8 rounded-2xl border border-custom card-hover transition-all duration-300 hover:scale-105">
+                        <div class="w-16 h-16 mx-auto mb-6 bg-blue-500/10 dark:bg-blue-500/20 rounded-full flex items-center justify-center">
+                            <i data-lucide="smartphone" class="w-8 h-8 accent-text"></i>
                         </div>
-                        <h3 data-lang="service1_title" class="text-2xl font-bold mb-2 text-white">Cartes de Visite Digitales</h3>
-                        <p data-lang="service1_desc" class="text-gray-400">Des cartes interactives, écologiques et inoubliables, équipées de la technologie NFC.</p>
+                        <h3 data-lang="service1_title" class="text-2xl font-bold mb-2">Cartes de Visite Digitales</h3>
+                        <p data-lang="service1_desc" class="text-secondary">Des cartes interactives, écologiques et inoubliables, équipées de la technologie NFC.</p>
                     </div>
-                    <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 hover:border-blue-500 transition-all duration-300 hover:scale-105">
-                        <div class="w-16 h-16 mx-auto mb-6 bg-blue-500/20 rounded-full flex items-center justify-center">
-                            <i data-lucide="layout-template" class="w-8 h-8 text-blue-400"></i>
+                    <div class="bg-secondary p-8 rounded-2xl border border-custom card-hover transition-all duration-300 hover:scale-105">
+                        <div class="w-16 h-16 mx-auto mb-6 bg-blue-500/10 dark:bg-blue-500/20 rounded-full flex items-center justify-center">
+                            <i data-lucide="layout-template" class="w-8 h-8 accent-text"></i>
                         </div>
-                        <h3 data-lang="service2_title" class="text-2xl font-bold mb-2 text-white">Portfolios sur Mesure</h3>
-                        <p data-lang="service2_desc" class="text-gray-400">Un site web unique qui raconte votre histoire et met en valeur votre talent comme jamais.</p>
+                        <h3 data-lang="service2_title" class="text-2xl font-bold mb-2">Portfolios sur Mesure</h3>
+                        <p data-lang="service2_desc" class="text-secondary">Un site web unique qui raconte votre histoire et met en valeur votre talent comme jamais.</p>
                     </div>
-                    <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 hover:border-blue-500 transition-all duration-300 hover:scale-105">
-                         <div class="w-16 h-16 mx-auto mb-6 bg-blue-500/20 rounded-full flex items-center justify-center">
-                            <i data-lucide="trending-up" class="w-8 h-8 text-blue-400"></i>
+                    <div class="bg-secondary p-8 rounded-2xl border border-custom card-hover transition-all duration-300 hover:scale-105">
+                         <div class="w-16 h-16 mx-auto mb-6 bg-blue-500/10 dark:bg-blue-500/20 rounded-full flex items-center justify-center">
+                            <i data-lucide="trending-up" class="w-8 h-8 accent-text"></i>
                         </div>
-                        <h3 data-lang="service3_title" class="text-2xl font-bold mb-2 text-white">Stratégie Digitale</h3>
-                        <p data-lang="service3_desc" class="text-gray-400">Des conseils et un plan d'action pour optimiser votre impact et atteindre vos objectifs en ligne.</p>
+                        <h3 data-lang="service3_title" class="text-2xl font-bold mb-2">Stratégie Digitale</h3>
+                        <p data-lang="service3_desc" class="text-secondary">Des conseils et un plan d'action pour optimiser votre impact et atteindre vos objectifs en ligne.</p>
                     </div>
                 </div>
             </div>
@@ -185,25 +227,25 @@
         <!-- ====== Testimonials Section ====== -->
         <section id="testimonials" class="py-20 px-4 md:px-8 fade-in-section">
             <div class="max-w-5xl mx-auto">
-                <h2 data-lang="testimonials_title" class="text-4xl md:text-5xl font-bold text-center mb-12 text-white">Ils me font confiance</h2>
+                <h2 data-lang="testimonials_title" class="text-4xl md:text-5xl font-bold text-center mb-12">Ils me font confiance</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-gray-900/40 p-8 rounded-2xl border border-gray-800">
-                        <p class="text-gray-300 italic mb-6">"Le portfolio a dépassé toutes mes attentes. C'est une véritable œuvre d'art digitale qui a boosté ma visibilité."</p>
+                    <div class="bg-secondary p-8 rounded-2xl border border-custom">
+                        <p class="text-secondary italic mb-6">"Le portfolio a dépassé toutes mes attentes. C'est une véritable œuvre d'art digitale qui a boosté ma visibilité."</p>
                         <div class="flex items-center">
                             <img src="https://placehold.co/100x100/1a1a1a/ffffff?text=C1" alt="Client 1" class="w-12 h-12 rounded-full mr-4">
                             <div>
-                                <h4 class="font-bold text-white">Alexandre Dupont</h4>
-                                <p class="text-sm text-gray-400" data-lang="client1_project">Projet : Portfolio Photographe</p>
+                                <h4 class="font-bold">Alexandre Dupont</h4>
+                                <p class="text-sm text-secondary" data-lang="client1_project">Projet : Portfolio Photographe</p>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-gray-900/40 p-8 rounded-2xl border border-gray-800">
-                        <p class="text-gray-300 italic mb-6">"La carte de visite digitale est incroyable. Simple, efficace et très pro. Mes contacts sont toujours impressionnés !"</p>
+                    <div class="bg-secondary p-8 rounded-2xl border border-custom">
+                        <p class="text-secondary italic mb-6">"La carte de visite digitale est incroyable. Simple, efficace et très pro. Mes contacts sont toujours impressionnés !"</p>
                         <div class="flex items-center">
                             <img src="https://placehold.co/100x100/1a1a1a/00aaff?text=C2" alt="Client 2" class="w-12 h-12 rounded-full mr-4">
                             <div>
-                                <h4 class="font-bold text-white">Fatima Al-Jamil</h4>
-                                <p class="text-sm text-gray-400" data-lang="client2_project">Projet : Carte de visite CEO</p>
+                                <h4 class="font-bold">Fatima Al-Jamil</h4>
+                                <p class="text-sm text-secondary" data-lang="client2_project">Projet : Carte de visite CEO</p>
                             </div>
                         </div>
                     </div>
@@ -214,33 +256,26 @@
         <!-- ====== Contact Section ====== -->
         <section id="contact" class="py-20 px-4 md:px-8 fade-in-section">
             <div class="max-w-3xl mx-auto text-center">
-                <h2 data-lang="contact_title" class="text-4xl md:text-5xl font-bold text-white mb-4">Prêt à créer ?</h2>
-                <p data-lang="contact_subtitle" class="text-gray-400 mb-12">Discutons de votre projet. Remplissez le formulaire ou contactez-moi directement.</p>
+                <h2 data-lang="contact_title" class="text-4xl md:text-5xl font-bold mb-4">Prêt à créer ?</h2>
+                <p data-lang="contact_subtitle" class="text-secondary mb-12">Discutons de votre projet. Remplissez le formulaire ou contactez-moi directement.</p>
                 <a href="#contact-form" class="inline-block bg-blue-600 text-white text-xl md:text-2xl font-bold px-12 py-6 rounded-full cta-glow mb-20">
                     <span data-lang="cta_button">Démarrons votre projet</span>
                 </a>
             </div>
             
             <div id="contact-form" class="max-w-2xl mx-auto">
-                <!--
-                  INSTRUCTION IMPORTANTE POUR FAIRE FONCTIONNER LE FORMULAIRE :
-                  1. Allez sur https://formspree.io/ et créez un compte gratuit.
-                  2. Créez un nouveau formulaire et copiez l'ID du formulaire.
-                  3. Remplacez "YOUR_FORM_ID" dans l'attribut `action` ci-dessous par votre propre ID.
-                  Exemple: action="https://formspree.io/f/abcdefgh"
-                -->
                 <form action="https://formspree.io/f/xvgqbrve" method="POST" class="space-y-6">
                     <div>
-                        <label for="name" class="block text-sm font-medium text-gray-300 mb-2" data-lang="form_name">Nom</label>
-                        <input type="text" name="name" id="name" required class="w-full bg-gray-800/50 border-2 border-gray-700 rounded-lg p-3 text-white focus:border-blue-500 focus:ring-blue-500 transition">
+                        <label for="name" class="block text-sm font-medium text-secondary mb-2" data-lang="form_name">Nom</label>
+                        <input type="text" name="name" id="name" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 focus:border-blue-500 focus:ring-blue-500 transition input-focus">
                     </div>
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-300 mb-2" data-lang="form_email">Email</label>
-                        <input type="email" name="email" id="email" required class="w-full bg-gray-800/50 border-2 border-gray-700 rounded-lg p-3 text-white focus:border-blue-500 focus:ring-blue-500 transition">
+                        <label for="email" class="block text-sm font-medium text-secondary mb-2" data-lang="form_email">Email</label>
+                        <input type="email" name="email" id="email" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 focus:border-blue-500 focus:ring-blue-500 transition input-focus">
                     </div>
                     <div>
-                        <label for="message" class="block text-sm font-medium text-gray-300 mb-2" data-lang="form_message">Votre message</label>
-                        <textarea name="message" id="message" rows="5" required class="w-full bg-gray-800/50 border-2 border-gray-700 rounded-lg p-3 text-white focus:border-blue-500 focus:ring-blue-500 transition"></textarea>
+                        <label for="message" class="block text-sm font-medium text-secondary mb-2" data-lang="form_message">Votre message</label>
+                        <textarea name="message" id="message" rows="5" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 focus:border-blue-500 focus:ring-blue-500 transition input-focus"></textarea>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="bg-blue-600 text-white font-bold text-lg px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors w-full md:w-auto">
@@ -253,18 +288,18 @@
 
 
         <!-- ====== Footer ====== -->
-        <footer class="bg-gray-900/50 border-t border-gray-800 py-12 px-4 md:px-8 mt-20">
-            <div class="max-w-7xl mx-auto text-center text-gray-400">
-                <h3 class="text-xl font-bold text-white mb-2">Khayal & Co.</h3>
-                <p class="mb-6" data-lang="footer_signature">Créateur d'identités numériques.</p>
-                <div class="flex justify-center space-x-6 mb-8">
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="dribbble" class="w-6 h-6"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="message-circle" class="w-6 h-6"></i></a> <!-- WhatsApp Icon -->
+        <footer class="bg-black/5 dark:bg-black/30 border-t border-custom py-12 px-4 md:px-8 mt-20">
+            <div class="max-w-7xl mx-auto text-center text-secondary">
+                <h3 class="text-xl font-bold text-primary mb-2">Khayal & Co.</h3>
+                <p class="mb-6" data-lang="footer_signature">Joseph HAMDY KAMAL</p>
+                <div id="social-icons" class="flex justify-center space-x-6 mb-8">
+                    <a href="#" class="text-secondary link-hover transition-transform duration-300 ease-out"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+                    <a href="#" class="text-secondary link-hover transition-transform duration-300 ease-out"><i data-lucide="dribbble" class="w-6 h-6"></i></a>
+                    <a href="#" class="text-secondary link-hover transition-transform duration-300 ease-out"><i data-lucide="message-circle" class="w-6 h-6"></i></a>
                 </div>
                 <div class="text-sm">
-                    <p>&copy; 2024. <span data-lang="footer_rights">Tous droits réservés.</span></p>
-                    <a href="#" class="underline hover:text-white" data-lang="footer_legal">Mentions Légales</a>
+                    <p>&copy; 2025. <span data-lang="footer_rights">Tous droits réservés.</span></p>
+                    <a href="#" class="underline link-hover" data-lang="footer_legal">Mentions Légales</a>
                 </div>
             </div>
         </footer>
@@ -304,7 +339,7 @@
                 form_email: "Email",
                 form_message: "Votre message",
                 form_submit: "Envoyer le message",
-                footer_signature: "Créateur d'identités numériques.",
+                footer_signature: "Joseph HAMDY KAMAL",
                 footer_rights: "Tous droits réservés.",
                 footer_legal: "Mentions Légales",
             },
@@ -338,7 +373,7 @@
                 form_email: "Email",
                 form_message: "Your message",
                 form_submit: "Send Message",
-                footer_signature: "Creator of digital identities.",
+                footer_signature: "Joseph HAMDY KAMAL",
                 footer_rights: "All rights reserved.",
                 footer_legal: "Legal Notice",
             },
@@ -372,7 +407,7 @@
                 form_email: "البريد الإلكتروني",
                 form_message: "رسالتك",
                 form_submit: "إرسال الرسالة",
-                footer_signature: "مبتكر الهويات الرقمية.",
+                footer_signature: "جوزيف حمدي كمال",
                 footer_rights: "جميع الحقوق محفوظة.",
                 footer_legal: "إشعار قانوني",
             }
@@ -400,12 +435,13 @@
             }
             
             document.querySelectorAll('.lang-btn').forEach(btn => {
-                if (btn.getAttribute('data-lang-id') === lang) {
-                    btn.classList.add('bg-blue-500', 'text-white');
-                    btn.classList.remove('text-gray-300');
+                const btnLang = btn.getAttribute('data-lang-id');
+                if (btnLang === lang) {
+                    btn.classList.add('bg-blue-600', 'text-white');
+                    btn.classList.remove('text-secondary');
                 } else {
-                    btn.classList.remove('bg-blue-500', 'text-white');
-                    btn.classList.add('text-gray-300');
+                    btn.classList.remove('bg-blue-600', 'text-white');
+                    btn.classList.add('text-secondary');
                 }
             });
 
@@ -444,11 +480,80 @@
             observer.observe(section);
         });
         
+        // --- Logique pour le changement de thème ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        function applyTheme(isDark) {
+             if (isDark) {
+                document.documentElement.classList.add('dark');
+                themeToggleLightIcon.style.display = 'block';
+                themeToggleDarkIcon.style.display = 'none';
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeToggleLightIcon.style.display = 'none';
+                themeToggleDarkIcon.style.display = 'block';
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            applyTheme(isDark);
+        });
+
+        // --- Logique pour les effets interactifs ---
+        function setupInteractiveEffects() {
+            const cursor = document.getElementById('custom-cursor');
+            const interactiveElements = document.querySelectorAll('a, button');
+
+            window.addEventListener('mousemove', e => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            });
+
+            const socialIcons = document.querySelectorAll('#social-icons a');
+            socialIcons.forEach(icon => {
+                icon.addEventListener('mousemove', (e) => {
+                    const rect = icon.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    icon.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                });
+                icon.addEventListener('mouseleave', () => {
+                    icon.style.transform = 'translate(0,0)';
+                });
+            });
+
+            // Effet Parallaxe
+            const circle1 = document.getElementById('blur-circle-1');
+            const circle2 = document.getElementById('blur-circle-2');
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                if (circle1) circle1.style.transform = `translateY(${scrollY * 0.2}px)`;
+                if (circle2) circle2.style.transform = `translateY(${scrollY * 0.1}px)`;
+            });
+        }
+
         // --- Initialisation au chargement de la page ---
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = savedTheme === 'dark' || (savedTheme === null && prefersDark);
+            applyTheme(isDark);
+
             const savedLang = localStorage.getItem('preferredLanguage') || 'fr';
             changeLanguage(savedLang);
+
+            setupInteractiveEffects();
         });
 
     </script>
