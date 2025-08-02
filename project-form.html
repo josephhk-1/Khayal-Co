@@ -48,10 +48,14 @@
         .link-hover:hover { color: var(--text-primary); }
         html.dark .link-hover:hover { color: #ffffff; }
 
-        /* Style pour les radio buttons custom */
-        .custom-radio input:checked + label {
+        /* Style pour les cartes de service (le "carrousel") */
+        .service-card input:checked + label {
             border-color: var(--accent-color);
             background-color: rgba(0, 170, 255, 0.1);
+            transform: scale(1.05);
+        }
+        .service-card label {
+            transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
         }
     </style>
 </head>
@@ -118,21 +122,30 @@
                         </div>
                     </fieldset>
 
-                    <!-- Section 2: Type de Projet -->
+                    <!-- Section 2: Type de Projet (Carrousel de cartes) -->
                     <fieldset class="space-y-4">
                         <legend class="text-2xl font-bold border-b border-custom pb-2 mb-4">2. Quel est votre besoin ?</legend>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div class="custom-radio">
+                            <div class="service-card">
                                 <input type="radio" id="service-card" name="service_type" value="Carte de Visite Digitale" class="hidden">
-                                <label for="service-card" class="block bg-secondary border-2 border-custom rounded-lg p-4 text-center cursor-pointer transition">Carte de Visite</label>
+                                <label for="service-card" class="flex flex-col items-center justify-center bg-secondary border-2 border-custom rounded-lg p-6 cursor-pointer h-full">
+                                    <i data-lucide="smartphone" class="w-10 h-10 accent-text mb-3"></i>
+                                    <span class="font-bold">Carte de Visite</span>
+                                </label>
                             </div>
-                            <div class="custom-radio">
+                            <div class="service-card">
                                 <input type="radio" id="service-portfolio" name="service_type" value="Portfolio sur Mesure" class="hidden">
-                                <label for="service-portfolio" class="block bg-secondary border-2 border-custom rounded-lg p-4 text-center cursor-pointer transition">Portfolio Web</label>
+                                <label for="service-portfolio" class="flex flex-col items-center justify-center bg-secondary border-2 border-custom rounded-lg p-6 cursor-pointer h-full">
+                                    <i data-lucide="layout-template" class="w-10 h-10 accent-text mb-3"></i>
+                                    <span class="font-bold">Portfolio Web</span>
+                                </label>
                             </div>
-                            <div class="custom-radio">
+                            <div class="service-card">
                                 <input type="radio" id="service-strategy" name="service_type" value="Stratégie Digitale" class="hidden">
-                                <label for="service-strategy" class="block bg-secondary border-2 border-custom rounded-lg p-4 text-center cursor-pointer transition">Stratégie Digitale</label>
+                                <label for="service-strategy" class="flex flex-col items-center justify-center bg-secondary border-2 border-custom rounded-lg p-6 cursor-pointer h-full">
+                                    <i data-lucide="trending-up" class="w-10 h-10 accent-text mb-3"></i>
+                                    <span class="font-bold">Stratégie Digitale</span>
+                                </label>
                             </div>
                         </div>
                     </fieldset>
@@ -184,9 +197,11 @@
             const returnLink = document.getElementById('return-link');
             returnLink.addEventListener('click', function(e) {
                 e.preventDefault();
+                const destination = this.getAttribute('href');
                 document.body.classList.remove('fade-in');
                 setTimeout(() => {
-                    window.location.href = this.href;
+                    // FIX: Using location.assign() for better compatibility
+                    window.location.assign(destination);
                 }, 500);
             });
         });
