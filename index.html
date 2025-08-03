@@ -139,10 +139,14 @@
                     <h1 data-lang="hero_title" class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-tight text-primary">L'identité numérique,<br>réinventée.</h1>
                     <p data-lang="hero_subtitle" class="mt-6 max-w-2xl mx-auto text-base md:text-xl text-secondary">Je conçois des expériences digitales uniques qui transforment votre présence en ligne. Cartes de visite, portfolios et stratégies sur mesure pour marquer les esprits.</p>
                     <div class="mt-12">
-                         <div class="w-64 h-96 md:w-80 md:h-[480px] bg-secondary/50 mx-auto rounded-3xl border-2 border-custom flex items-center justify-center shadow-2xl relative overflow-hidden backdrop-blur-md">
-                             <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://placehold.co/400x600/1a1a1a/00aaff?text=Votre+Carte+Digitale')"></div>
-                             <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                             <p class="absolute bottom-4 text-white text-sm font-bold" data-lang="hero_mockup_text">Votre Identité Interactive</p>
+                         <div class="w-64 h-96 md:w-80 md:h-[480px] bg-secondary/50 mx-auto rounded-3xl border-2 border-custom flex items-center justify-center shadow-2xl relative overflow-hidden backdrop-blur-md p-1">
+                             <!-- Votre carte de visite est maintenant intégrée ici -->
+                             <iframe 
+                                src="https://josephhk-1.github.io/E--business-card-Jospeh-HAMDY-KAMAL/"
+                                class="w-full h-full border-0 rounded-[22px]" 
+                                title="Carte de visite interactive">
+                             </iframe>
+                             <div class="absolute bottom-4 left-0 right-0 text-center text-white text-sm font-bold pointer-events-none" data-lang="hero_mockup_text">Votre Identité Interactive</div>
                          </div>
                     </div>
                 </div>
@@ -153,22 +157,25 @@
                     <h2 data-lang="portfolio_title" class="text-4xl md:text-5xl font-bold text-center mb-4 text-primary">Mes Créations</h2>
                     <p data-lang="portfolio_subtitle" class="text-center text-secondary mb-12 max-w-3xl mx-auto">Chaque projet est une histoire. Découvrez comment j'ai aidé mes clients à briller dans le monde numérique.</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Projet 1: Carte de visite -->
                         <div class="project-card bg-secondary p-6 rounded-2xl border border-custom shadow-lg">
-                            <img src="https://placehold.co/600x400/151515/d4af37?text=Projet+Alpha" alt="Projet Alpha" loading="lazy" decoding="async" class="rounded-lg mb-4 w-full h-auto">
-                            <h3 class="text-2xl font-bold gold-text">Projet Alpha</h3>
-                            <p class="text-secondary mt-2 mb-4" data-lang="project1_desc">Portfolio web immersif pour un artiste photographe.</p>
+                            <img src="carte-digitale-1.jpg" alt="Carte de visite digitale 1" loading="lazy" decoding="async" class="rounded-lg mb-4 w-full h-auto">
+                            <h3 class="text-2xl font-bold accent-text" data-lang="project1_title">Carte de Visite Digitale</h3>
+                            <p class="text-secondary mt-2 mb-4" data-lang="project1_desc">Carte de visite interactive avec animations fluides et intégration NFC pour un consultant.</p>
                             <a href="#" class="inline-block accent-bg text-white font-semibold px-6 py-2 rounded-lg hover:opacity-90 transition-opacity" data-lang="view_project_btn">Voir le Projet</a>
                         </div>
+                        <!-- Projet 2: Carte de visite -->
                         <div class="project-card bg-secondary p-6 rounded-2xl border border-custom shadow-lg md:col-span-1 lg:col-span-2">
-                            <img src="https://placehold.co/800x400/151515/00aaff?text=Projet+Beta" alt="Projet Beta" loading="lazy" decoding="async" class="rounded-lg mb-4 w-full h-auto">
-                            <h3 class="text-2xl font-bold accent-text">Projet Beta</h3>
-                            <p class="text-secondary mt-2 mb-4" data-lang="project2_desc">Carte de visite digitale avec NFC pour une startup tech.</p>
+                            <img src="carte-digitale-2.jpg" alt="Carte de visite digitale 2" loading="lazy" decoding="async" class="rounded-lg mb-4 w-full h-auto">
+                            <h3 class="text-2xl font-bold gold-text" data-lang="project2_title">Carte de Visite Moderne</h3>
+                            <p class="text-secondary mt-2 mb-4" data-lang="project2_desc">Design moderne et minimaliste pour une carte digitale destinée à un créatif indépendant.</p>
                             <a href="#" class="inline-block accent-bg text-white font-semibold px-6 py-2 rounded-lg hover:opacity-90 transition-opacity" data-lang="view_project_btn">Voir le Projet</a>
                         </div>
+                        <!-- Projet 3: Portfolio -->
                         <div class="project-card bg-secondary p-6 rounded-2xl border border-custom shadow-lg">
-                            <img src="https://placehold.co/600x400/151515/ffffff?text=Projet+Gamma" alt="Projet Gamma" loading="lazy" decoding="async" class="rounded-lg mb-4 w-full h-auto">
-                            <h3 class="text-2xl font-bold text-primary">Projet Gamma</h3>
-                            <p class="text-secondary mt-2 mb-4" data-lang="project3_desc">Stratégie de contenu et refonte UX pour un site e-commerce.</p>
+                            <img src="portfolio.jpg" alt="Portfolio Web" loading="lazy" decoding="async" class="rounded-lg mb-4 w-full h-auto">
+                            <h3 class="text-2xl font-bold text-primary" data-lang="project3_title">Portfolio Web Immersif</h3>
+                            <p class="text-secondary mt-2 mb-4" data-lang="project3_desc">Création de portfolio personnalisé sur mesure pour vos projets.</p>
                             <a href="#" class="inline-block accent-bg text-white font-semibold px-6 py-2 rounded-lg hover:opacity-90 transition-opacity" data-lang="view_project_btn">Voir le Projet</a>
                         </div>
                     </div>
@@ -209,11 +216,9 @@
         <footer class="bg-black/5 dark:bg-black/30 border-t border-custom py-12 px-4 md:px-8 mt-20">
             <div class="max-w-7xl mx-auto text-center text-secondary">
                 <h3 class="text-xl font-bold text-primary mb-2">Khayal & Co.</h3>
-                <p class="mb-6" data-lang="footer_signature">Joseph HAMDY KAMAL</p>
+                <a href="https://josephhk-1.github.io/" target="_blank" rel="noopener noreferrer" class="mb-6 inline-block text-primary hover:accent-text transition-colors" data-lang="footer_signature">Joseph HAMDY KAMAL</a>
                 <div id="social-icons" class="flex justify-center space-x-6 mb-8">
-                    <a href="#" class="text-secondary hover:text-primary transition-transform duration-300 ease-out"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
-                    <a href="#" class="text-secondary hover:text-primary transition-transform duration-300 ease-out"><i data-lucide="dribbble" class="w-6 h-6"></i></a>
-                    <a href="#" class="text-secondary hover:text-primary transition-transform duration-300 ease-out"><i data-lucide="message-circle" class="w-6 h-6"></i></a>
+                    <a href="https://www.linkedin.com/in/joseph-hamdy-kamal-5abb7b241/" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-primary transition-transform duration-300 ease-out"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
                 </div>
                 <div class="text-sm">
                     <p>&copy; 2025. <span data-lang="footer_rights">Tous droits réservés.</span></p>
@@ -233,9 +238,12 @@
                     portfolio_title: "Mes Créations",
                     portfolio_subtitle: "Chaque projet est une histoire. Découvrez comment j'ai aidé mes clients à briller dans le monde numérique.",
                     view_project_btn: "Voir le Projet",
-                    project1_desc: "Portfolio web immersif pour un artiste photographe.",
-                    project2_desc: "Carte de visite digitale avec NFC pour une startup tech.",
-                    project3_desc: "Stratégie de contenu et refonte UX pour un site e-commerce.",
+                    project1_title: "Carte de Visite Digitale",
+                    project1_desc: "Carte de visite interactive avec animations fluides et intégration NFC pour un consultant.",
+                    project2_title: "Carte de Visite Moderne",
+                    project2_desc: "Design moderne et minimaliste pour une carte digitale destinée à un créatif indépendant.",
+                    project3_title: "Portfolio Web Immersif",
+                    project3_desc: "Création de portfolio personnalisé sur mesure pour vos projets.",
                     services_title: "Mes Services",
                     service1_title: "Cartes de Visite Digitales",
                     service1_desc: "Des cartes interactives, écologiques et inoubliables, équipées de la technologie NFC.",
@@ -256,9 +264,12 @@
                     portfolio_title: "My Creations",
                     portfolio_subtitle: "Every project tells a story. Discover how I've helped my clients shine in the digital world.",
                     view_project_btn: "View Project",
-                    project1_desc: "Immersive web portfolio for a photographer artist.",
-                    project2_desc: "NFC-enabled digital business card for a tech startup.",
-                    project3_desc: "Content strategy and UX redesign for an e-commerce site.",
+                    project1_title: "Digital Business Card",
+                    project1_desc: "Interactive business card with fluid animations and NFC integration for a consultant.",
+                    project2_title: "Modern Business Card",
+                    project2_desc: "Modern and minimalist design for a digital card for a freelance creative.",
+                    project3_title: "Immersive Web Portfolio",
+                    project3_desc: "Custom-built portfolio creation, tailored for your projects.",
                     services_title: "My Services",
                     service1_title: "Digital Business Cards",
                     service1_desc: "Interactive, eco-friendly, and unforgettable cards, equipped with NFC technology.",
@@ -279,9 +290,12 @@
                     portfolio_title: "أعمالي",
                     portfolio_subtitle: "كل مشروع يحكي قصة. اكتشف كيف ساعدت عملائي على التألق في العالم الرقمي.",
                     view_project_btn: "شاهد المشروع",
-                    project1_desc: "ملف أعمال ويب غامر لفنان مصور.",
-                    project2_desc: "بطاقة عمل رقمية بتقنية NFC لشركة تقنية ناشئة.",
-                    project3_desc: "استراتيجية محتوى وإعادة تصميم تجربة المستخدم لموقع تجارة إلكترونية.",
+                    project1_title: "بطاقة عمل رقمية",
+                    project1_desc: "بطاقة عمل تفاعلية مع رسوم متحركة سلسة وتكامل NFC لاستشاري.",
+                    project2_title: "بطاقة عمل عصرية",
+                    project2_desc: "تصميم عصري وبسيط لبطاقة رقمية مخصصة لمبدع مستقل.",
+                    project3_title: "ملف أعمال ويب غامر",
+                    project3_desc: "إنشاء ملف أعمال شخصي مصمم خصيصًا لمشاريعك.",
                     services_title: "خدماتي",
                     service1_title: "بطاقات العمل الرقمية",
                     service1_desc: "بطاقات تفاعلية، صديقة للبيئة، ولا تُنسى، مزودة بتقنية NFC.",
@@ -338,7 +352,6 @@
                 }
             }
             
-            // Utilisation de IntersectionObserver pour les animations au défilement (plus performant)
             function setupFadeInSections() {
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
@@ -353,7 +366,7 @@
             }
 
             function setupInteractiveEffects() {
-                if (window.matchMedia("(pointer: coarse)").matches) return; // Pas d'effets sur les appareils tactiles
+                if (window.matchMedia("(pointer: coarse)").matches) return;
 
                 const cursor = document.getElementById('custom-cursor');
                 window.addEventListener('mousemove', e => {
@@ -383,11 +396,9 @@
                 });
             }
 
-            // Initialisation au chargement du DOM
             document.addEventListener('DOMContentLoaded', () => {
                 lucide.createIcons();
 
-                // Gestion du thème
                 const themeToggleBtn = document.getElementById('theme-toggle');
                 const savedTheme = localStorage.getItem('theme');
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -399,7 +410,6 @@
                     localStorage.setItem('theme', newIsDark ? 'dark' : 'light');
                 });
 
-                // Gestion de la langue avec délégation d'événements
                 const langSwitcher = document.getElementById('lang-switcher');
                 changeLanguage(localStorage.getItem('preferredLanguage') || 'fr');
                 langSwitcher.addEventListener('click', (e) => {
@@ -409,14 +419,11 @@
                     }
                 });
                 
-                // Effets et animations
                 setupInteractiveEffects();
                 setupFadeInSections();
                 
-                // Fondu d'entrée de la page
                 document.body.classList.add('fade-in');
 
-                // Transitions de page
                 document.querySelectorAll('.page-transition-link').forEach(link => {
                     link.addEventListener('click', function(e) {
                         e.preventDefault();
