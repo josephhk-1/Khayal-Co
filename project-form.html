@@ -1,51 +1,75 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr" class="dark">
+<html lang="fr" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-lang="page_title">Démarrer un Projet - Khayal & Co.</title>
     
+    <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
+        /* Définition des variables de couleur et des polices pour les modes clair/sombre */
+        :root {
+            --font-inter: 'Inter', sans-serif;
+            --font-cairo: 'Cairo', sans-serif;
+            
+            --bg-main: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --border-color: #e9ecef;
+            --accent-color: #00aaff;
+            --gold-color: #d4af37;
+        }
+
+        html.dark {
+            --bg-main: #1a1a1a;
+            --bg-secondary: #2c2c2e;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --border-color: #3a3a3c;
+        }
+        
+        /* Application des variables et styles de base */
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-inter);
+            background-color: var(--bg-main);
+            color: var(--text-primary);
             transition: background-color 0.5s ease, color 0.5s ease, opacity 0.5s ease-in-out;
             opacity: 0;
         }
         body.fade-in { opacity: 1; }
-        .font-cairo { font-family: 'Cairo', sans-serif; }
-        
-        :root {
-            --bg-main: #f8f9fa; --bg-secondary: #ffffff; --text-primary: #212529; --text-secondary: #6c757d;
-            --border-color: #e9ecef; --accent-color: #00aaff; --gold-color: #d4af37;
-        }
-        html.dark {
-            --bg-main: #1a1a1a; --bg-secondary: #2c2c2e; --text-primary: #f0f0f0; --text-secondary: #a0a0a0;
-            --border-color: #3a3a3c;
-        }
-        
-        body { background-color: var(--bg-main); color: var(--text-primary); }
+        body.font-cairo { font-family: var(--font-cairo); }
+
+        /* Classes utilitaires personnalisées */
         .bg-secondary { background-color: var(--bg-secondary); }
         .text-secondary { color: var(--text-secondary); }
         .border-custom { border-color: var(--border-color); }
-        .accent-text { color: var(--accent-color); }
+        .accent-bg { background-color: var(--accent-color); }
         
-        .input-focus:focus { border-color: var(--accent-color); --tw-ring-color: var(--accent-color); }
-        .link-hover:hover { color: var(--text-primary); }
-        html.dark .link-hover:hover { color: #ffffff; }
+        /* Styles spécifiques au formulaire */
+        .input-focus:focus { 
+            border-color: var(--accent-color); 
+            --tw-ring-color: var(--accent-color);
+            box-shadow: 0 0 0 2px var(--accent-color-alpha, rgba(0, 170, 255, 0.2));
+        }
 
+        .service-card label {
+            transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+        }
         .service-card input:checked + label {
             border-color: var(--accent-color);
             background-color: rgba(0, 170, 255, 0.1);
-            transform: scale(1.05);
-        }
-        .service-card label {
-            transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+            transform: scale(1.03);
         }
     </style>
 </head>
@@ -55,22 +79,22 @@
         
         <header class="absolute top-0 left-0 w-full z-50 p-4 md:p-6 flex justify-between items-center">
             <div>
-                <h2 class="text-xl md:text-2xl font-bold">Khayal & Co.</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-primary">Khayal & Co.</h2>
             </div>
             <div class="flex items-center space-x-2">
-                <a href="index.html" id="return-link" class="flex items-center space-x-2 text-secondary link-hover transition-colors p-2 rounded-full hover:bg-gray-500/10">
+                <a href="index.html" id="return-link" class="page-transition-link flex items-center space-x-2 text-secondary hover:text-primary transition-colors p-2 rounded-full hover:bg-gray-500/10">
                     <i data-lucide="arrow-left" class="w-5 h-5"></i>
                     <span data-lang="return_button" class="hidden md:inline">Retour</span>
                 </a>
                 <div class="flex items-center space-x-2 md:space-x-4 bg-secondary/50 backdrop-blur-sm p-2 rounded-full border border-custom">
-                    <button id="theme-toggle" class="p-2 rounded-full text-secondary hover:bg-gray-500/20 transition-colors">
+                    <button id="theme-toggle" class="p-2 rounded-full text-secondary hover:bg-gray-500/20 transition-colors" aria-label="Changer de thème">
                         <i id="theme-toggle-dark-icon" data-lucide="moon" class="w-5 h-5"></i>
-                        <i id="theme-toggle-light-icon" data-lucide="sun" class="w-5 h-5"></i>
+                        <i id="theme-toggle-light-icon" data-lucide="sun" class="w-5 h-5" style="display: none;"></i>
                     </button>
-                    <div class="flex items-center space-x-1">
-                        <button onclick="changeLanguage('fr')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-2 md:px-3 py-1 rounded-full" data-lang-id="fr">FR</button>
-                        <button onclick="changeLanguage('en')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-2 md:px-3 py-1 rounded-full" data-lang-id="en">EN</button>
-                        <button onclick="changeLanguage('ar')" class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-2 md:px-3 py-1 rounded-full" data-lang-id="ar">AR</button>
+                    <div id="lang-switcher" class="flex items-center space-x-1">
+                        <button class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-2 md:px-3 py-1 rounded-full" data-lang-id="fr">FR</button>
+                        <button class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-2 md:px-3 py-1 rounded-full" data-lang-id="en">EN</button>
+                        <button class="lang-btn active:scale-95 transition-transform text-sm font-semibold px-2 md:px-3 py-1 rounded-full" data-lang-id="ar">AR</button>
                     </div>
                 </div>
             </div>
@@ -79,7 +103,7 @@
         <main class="px-4 py-32">
             <div class="max-w-3xl mx-auto">
                 <div class="text-center mb-12">
-                    <h1 data-lang="form_title" class="text-4xl md:text-6xl font-black uppercase">Démarrons votre projet</h1>
+                    <h1 data-lang="form_title" class="text-4xl md:text-6xl font-black uppercase text-primary">Démarrons votre projet</h1>
                     <p data-lang="form_subtitle" class="mt-4 text-secondary max-w-xl mx-auto">Ce questionnaire nous aidera à mieux comprendre votre vision. Plus vos réponses sont détaillées, mieux nous pourrons vous servir.</p>
                 </div>
 
@@ -90,7 +114,7 @@
                 <form id="project-form" action="https://formspree.io/f/xvgqbrve" method="POST" class="space-y-10">
                     
                     <fieldset class="space-y-6">
-                        <legend data-lang="section1_title" class="text-2xl font-bold border-b border-custom pb-2 mb-4">1. Vos Coordonnées</legend>
+                        <legend data-lang="section1_title" class="text-2xl font-bold border-b border-custom pb-2 mb-4 text-primary w-full">1. Vos Coordonnées</legend>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="firstname" data-lang="label_firstname" class="block text-sm font-medium text-secondary mb-2">Prénom</label>
@@ -107,41 +131,39 @@
                         </div>
                         <div>
                             <label for="country" data-lang="label_country" class="block text-sm font-medium text-secondary mb-2">Pays</label>
-                            <select name="country" id="country" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 input-focus transition">
-                                <!-- Options injectées par JS -->
-                            </select>
+                            <select name="country" id="country" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 input-focus transition appearance-none"></select>
                         </div>
                     </fieldset>
 
                     <fieldset class="space-y-4">
-                        <legend data-lang="section2_title" class="text-2xl font-bold border-b border-custom pb-2 mb-4">2. Quel est votre besoin ?</legend>
+                        <legend data-lang="section2_title" class="text-2xl font-bold border-b border-custom pb-2 mb-4 text-primary w-full">2. Quel est votre besoin ?</legend>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div class="service-card">
                                 <input type="radio" id="service-card" name="service_type" value="Carte de Visite Digitale" class="hidden">
-                                <label for="service-card" class="flex flex-col items-center justify-center bg-secondary border-2 border-custom rounded-lg p-6 cursor-pointer h-full">
-                                    <i data-lucide="smartphone" class="w-10 h-10 accent-text mb-3"></i>
-                                    <span data-lang="service_card" class="font-bold">Carte de Visite</span>
+                                <label for="service-card" class="flex flex-col items-center justify-center text-center bg-secondary border-2 border-custom rounded-lg p-6 cursor-pointer h-full">
+                                    <i data-lucide="smartphone" class="w-10 h-10 text-accent-color mb-3"></i>
+                                    <span data-lang="service_card" class="font-bold text-primary">Carte de Visite</span>
                                 </label>
                             </div>
                             <div class="service-card">
                                 <input type="radio" id="service-portfolio" name="service_type" value="Portfolio sur Mesure" class="hidden">
-                                <label for="service-portfolio" class="flex flex-col items-center justify-center bg-secondary border-2 border-custom rounded-lg p-6 cursor-pointer h-full">
-                                    <i data-lucide="layout-template" class="w-10 h-10 accent-text mb-3"></i>
-                                    <span data-lang="service_portfolio" class="font-bold">Portfolio Web</span>
+                                <label for="service-portfolio" class="flex flex-col items-center justify-center text-center bg-secondary border-2 border-custom rounded-lg p-6 cursor-pointer h-full">
+                                    <i data-lucide="layout-template" class="w-10 h-10 text-accent-color mb-3"></i>
+                                    <span data-lang="service_portfolio" class="font-bold text-primary">Portfolio Web</span>
                                 </label>
                             </div>
                             <div class="service-card">
                                 <input type="radio" id="service-strategy" name="service_type" value="Stratégie Digitale" class="hidden">
-                                <label for="service-strategy" class="flex flex-col items-center justify-center bg-secondary border-2 border-custom rounded-lg p-6 cursor-pointer h-full">
-                                    <i data-lucide="trending-up" class="w-10 h-10 accent-text mb-3"></i>
-                                    <span data-lang="service_strategy" class="font-bold">Stratégie Digitale</span>
+                                <label for="service-strategy" class="flex flex-col items-center justify-center text-center bg-secondary border-2 border-custom rounded-lg p-6 cursor-pointer h-full">
+                                    <i data-lucide="trending-up" class="w-10 h-10 text-accent-color mb-3"></i>
+                                    <span data-lang="service_strategy" class="font-bold text-primary">Stratégie Digitale</span>
                                 </label>
                             </div>
                         </div>
                     </fieldset>
 
                     <fieldset class="space-y-6">
-                        <legend data-lang="section3_title" class="text-2xl font-bold border-b border-custom pb-2 mb-4">3. Parlez-nous de votre vision</legend>
+                        <legend data-lang="section3_title" class="text-2xl font-bold border-b border-custom pb-2 mb-4 text-primary w-full">3. Parlez-nous de votre vision</legend>
                         <div>
                             <label for="project-description" data-lang="label_vision" class="block text-sm font-medium text-secondary mb-2">Décrivez votre projet et vos objectifs.</label>
                             <textarea name="project-description" id="project-description" rows="6" required class="w-full bg-secondary border-2 border-custom rounded-lg p-3 input-focus transition"></textarea>
@@ -149,7 +171,7 @@
                     </fieldset>
 
                     <div class="text-center pt-6">
-                        <button type="submit" data-lang="submit_button" class="bg-blue-600 text-white font-bold text-lg px-12 py-4 rounded-lg hover:bg-blue-700 transition-colors w-full md:w-auto">
+                        <button type="submit" data-lang="submit_button" class="accent-bg text-white font-bold text-lg px-12 py-4 rounded-lg hover:opacity-90 transition-opacity w-full md:w-auto">
                             Envoyer ma demande
                         </button>
                     </div>
@@ -159,138 +181,153 @@
     </div>
 
     <script>
-        const translations = {
-            fr: {
-                page_title: "Démarrer un Projet - Khayal & Co.", return_button: "Retour", form_title: "Démarrons votre projet",
-                form_subtitle: "Ce questionnaire nous aidera à mieux comprendre votre vision. Plus vos réponses sont détaillées, mieux nous pourrons vous servir.",
-                email_error_msg: "Veuillez utiliser une adresse e-mail valide (Gmail, Outlook, Yahoo, iCloud).",
-                section1_title: "1. Vos Coordonnées", label_firstname: "Prénom", label_lastname: "Nom", label_email: "Email Professionnel", label_country: "Pays",
-                section2_title: "2. Quel est votre besoin ?", service_card: "Carte de Visite", service_portfolio: "Portfolio Web", service_strategy: "Stratégie Digitale",
-                section3_title: "3. Parlez-nous de votre vision", label_vision: "Décrivez votre projet et vos objectifs.", submit_button: "Envoyer ma demande",
-            },
-            en: {
-                page_title: "Start a Project - Khayal & Co.", return_button: "Back", form_title: "Let's start your project",
-                form_subtitle: "This questionnaire will help us better understand your vision. The more detailed your answers, the better we can serve you.",
-                email_error_msg: "Please use a valid email address (Gmail, Outlook, Yahoo, iCloud).",
-                section1_title: "1. Your Contact Information", label_firstname: "First Name", label_lastname: "Last Name", label_email: "Professional Email", label_country: "Country",
-                section2_title: "2. What is your need?", service_card: "Digital Card", service_portfolio: "Web Portfolio", service_strategy: "Digital Strategy",
-                section3_title: "3. Tell us about your vision", label_vision: "Describe your project and your goals.", submit_button: "Send my request",
-            },
-            ar: {
-                page_title: "ابدأ مشروعًا - خيال وشركاه", return_button: "رجوع", form_title: "لنبدأ مشروعك",
-                form_subtitle: "سيساعدنا هذا الاستبيان على فهم رؤيتك بشكل أفضل. كلما كانت إجاباتك أكثر تفصيلاً، تمكنا من خدمتك بشكل أفضل.",
-                email_error_msg: "الرجاء استخدام عنوان بريد إلكتروني صالح (Gmail, Outlook, Yahoo, iCloud).",
-                section1_title: "١. معلومات الاتصال الخاصة بك", label_firstname: "الاسم الأول", label_lastname: "اسم العائلة", label_email: "البريد الإلكتروني المهني", label_country: "البلد",
-                section2_title: "٢. ما هي حاجتك؟", service_card: "بطاقة عمل رقمية", service_portfolio: "ملف أعمال ويب", service_strategy: "استراتيجية رقمية",
-                section3_title: "٣. أخبرنا عن رؤيتك", label_vision: "صف مشروعك وأهدافك.", submit_button: "إرسال طلبي",
-            }
-        };
-
-        const countryOptions = {
-            fr: [ {value: "", text: "Sélectionnez votre pays..."}, {value: "France", text: "France"}, {value: "Maroc", text: "Maroc"}, {value: "Algérie", text: "Algérie"}, {value: "Tunisie", text: "Tunisie"}, {value: "Canada", text: "Canada"}, {value: "Belgique", text: "Belgique"}, {value: "Suisse", text: "Suisse"}, {value: "Égypte", text: "Égypte"}, {value: "Autre", text: "Autre"} ],
-            en: [ {value: "", text: "Select your country..."}, {value: "France", text: "France"}, {value: "Morocco", text: "Morocco"}, {value: "Algeria", text: "Algeria"}, {value: "Tunisia", text: "Tunisia"}, {value: "Canada", text: "Canada"}, {value: "Belgium", text: "Belgium"}, {value: "Switzerland", text: "Switzerland"}, {value: "Egypt", text: "Egypt"}, {value: "Other", text: "Other"} ],
-            ar: [ {value: "", text: "اختر بلدك..."}, {value: "France", text: "فرنسا"}, {value: "Maroc", text: "المغرب"}, {value: "Algérie", text: "الجزائر"}, {value: "Tunisie", text: "تونس"}, {value: "Canada", text: "كندا"}, {value: "Belgique", text: "بلجيكا"}, {value: "Suisse", text: "سويسرا"}, {value: "Égypte", text: "مصر"}, {value: "Autre", text: "أخرى"} ]
-        };
-
-        function changeLanguage(lang) {
-            const elements = document.querySelectorAll('[data-lang]');
-            const htmlEl = document.documentElement;
-            
-            elements.forEach(el => {
-                const key = el.getAttribute('data-lang');
-                if (translations[lang][key]) { el.innerHTML = translations[lang][key]; }
-            });
-            document.title = translations[lang].page_title;
-
-            const countrySelect = document.getElementById('country');
-            countrySelect.innerHTML = '';
-            countryOptions[lang].forEach(optionData => {
-                const option = document.createElement('option');
-                option.value = optionData.value;
-                option.textContent = optionData.text;
-                countrySelect.appendChild(option);
-            });
-
-            if (lang === 'ar') {
-                htmlEl.setAttribute('dir', 'rtl');
-                document.body.classList.add('font-cairo');
-            } else {
-                htmlEl.setAttribute('dir', 'ltr');
-                document.body.classList.remove('font-cairo');
-            }
-            
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.toggle('bg-blue-600', btn.getAttribute('data-lang-id') === lang);
-                btn.classList.toggle('text-white', btn.getAttribute('data-lang-id') === lang);
-            });
-
-            localStorage.setItem('preferredLanguage', lang);
-        }
-
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-
-        function applyTheme(isDark) {
-             if (isDark) {
-                document.documentElement.classList.add('dark');
-                themeToggleLightIcon.style.display = 'block';
-                themeToggleDarkIcon.style.display = 'none';
-            } else {
-                document.documentElement.classList.remove('dark');
-                themeToggleLightIcon.style.display = 'none';
-                themeToggleDarkIcon.style.display = 'block';
-            }
-        }
-
-        themeToggleBtn.addEventListener('click', () => {
-            const isDark = document.documentElement.classList.toggle('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            applyTheme(isDark);
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-            document.body.classList.add('fade-in');
-
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const isDark = savedTheme === 'dark' || (savedTheme === null && prefersDark);
-            applyTheme(isDark);
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const langFromUrl = urlParams.get('lang');
-            const savedLang = localStorage.getItem('preferredLanguage') || 'fr';
-            changeLanguage(langFromUrl || savedLang);
-
-            const form = document.getElementById('project-form');
-            const emailInput = document.getElementById('email');
-            const emailError = document.getElementById('email-error');
-            const validDomains = ['gmail.com', 'outlook.com', 'yahoo.com', 'icloud.com'];
-
-            form.addEventListener('submit', function(e) {
-                const emailValue = emailInput.value.toLowerCase();
-                const domain = emailValue.split('@')[1];
-
-                if (!domain || !validDomains.includes(domain)) {
-                    e.preventDefault();
-                    emailError.classList.remove('hidden');
-                    emailInput.focus();
-                } else {
-                    emailError.classList.add('hidden');
+        (() => {
+            const translations = {
+                fr: {
+                    page_title: "Démarrer un Projet - Khayal & Co.", return_button: "Retour", form_title: "Démarrons votre projet",
+                    form_subtitle: "Ce questionnaire nous aidera à mieux comprendre votre vision. Plus vos réponses sont détaillées, mieux nous pourrons vous servir.",
+                    email_error_msg: "Veuillez utiliser une adresse e-mail valide (Gmail, Outlook, Yahoo, iCloud).",
+                    section1_title: "1. Vos Coordonnées", label_firstname: "Prénom", label_lastname: "Nom", label_email: "Email Professionnel", label_country: "Pays",
+                    section2_title: "2. Quel est votre besoin ?", service_card: "Carte de Visite", service_portfolio: "Portfolio Web", service_strategy: "Stratégie Digitale",
+                    section3_title: "3. Parlez-nous de votre vision", label_vision: "Décrivez votre projet et vos objectifs.", submit_button: "Envoyer ma demande",
+                },
+                en: {
+                    page_title: "Start a Project - Khayal & Co.", return_button: "Back", form_title: "Let's start your project",
+                    form_subtitle: "This questionnaire will help us better understand your vision. The more detailed your answers, the better we can serve you.",
+                    email_error_msg: "Please use a valid email address (Gmail, Outlook, Yahoo, iCloud).",
+                    section1_title: "1. Your Contact Information", label_firstname: "First Name", label_lastname: "Last Name", label_email: "Professional Email", label_country: "Country",
+                    section2_title: "2. What is your need?", service_card: "Digital Card", service_portfolio: "Web Portfolio", service_strategy: "Digital Strategy",
+                    section3_title: "3. Tell us about your vision", label_vision: "Describe your project and your goals.", submit_button: "Send my request",
+                },
+                ar: {
+                    page_title: "ابدأ مشروعًا - خيال وشركاه", return_button: "رجوع", form_title: "لنبدأ مشروعك",
+                    form_subtitle: "سيساعدنا هذا الاستبيان على فهم رؤيتك بشكل أفضل. كلما كانت إجاباتك أكثر تفصيلاً، تمكنا من خدمتك بشكل أفضل.",
+                    email_error_msg: "الرجاء استخدام عنوان بريد إلكتروني صالح (Gmail, Outlook, Yahoo, iCloud).",
+                    section1_title: "١. معلومات الاتصال الخاصة بك", label_firstname: "الاسم الأول", label_lastname: "اسم العائلة", label_email: "البريد الإلكتروني المهني", label_country: "البلد",
+                    section2_title: "٢. ما هي حاجتك؟", service_card: "بطاقة عمل رقمية", service_portfolio: "ملف أعمال ويب", service_strategy: "استراتيجية رقمية",
+                    section3_title: "٣. أخبرنا عن رؤيتك", label_vision: "صف مشروعك وأهدافك.", submit_button: "إرسال طلبي",
                 }
-            });
+            };
 
-            const returnLink = document.getElementById('return-link');
-            returnLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                const destination = this.getAttribute('href');
-                document.body.classList.remove('fade-in');
-                setTimeout(() => {
-                    window.location.assign(destination);
-                }, 500);
+            const countryOptions = {
+                fr: [ {value: "", text: "Sélectionnez votre pays..."}, {value: "France", text: "France"}, {value: "Maroc", text: "Maroc"}, {value: "Algérie", text: "Algérie"}, {value: "Tunisie", text: "Tunisie"}, {value: "Canada", text: "Canada"}, {value: "Belgique", text: "Belgique"}, {value: "Suisse", text: "Suisse"}, {value: "Égypte", text: "Égypte"}, {value: "Autre", text: "Autre"} ],
+                en: [ {value: "", text: "Select your country..."}, {value: "France", text: "France"}, {value: "Morocco", text: "Morocco"}, {value: "Algeria", text: "Algeria"}, {value: "Tunisia", text: "Tunisia"}, {value: "Canada", text: "Canada"}, {value: "Belgium", text: "Belgium"}, {value: "Switzerland", text: "Switzerland"}, {value: "Egypt", text: "Egypt"}, {value: "Other", text: "Other"} ],
+                ar: [ {value: "", text: "اختر بلدك..."}, {value: "France", text: "فرنسا"}, {value: "Maroc", text: "المغرب"}, {value: "Algérie", text: "الجزائر"}, {value: "Tunisie", text: "تونس"}, {value: "Canada", text: "كندا"}, {value: "Belgique", text: "بلجيكا"}, {value: "Suisse", text: "سويسرا"}, {value: "Égypte", text: "مصر"}, {value: "Autre", text: "أخرى"} ]
+            };
+
+            let currentLang = 'fr';
+            const htmlEl = document.documentElement;
+
+            function updateTexts(lang) {
+                document.querySelectorAll('[data-lang]').forEach(el => {
+                    const key = el.dataset.lang;
+                    if (translations[lang]?.[key]) {
+                        el.innerHTML = translations[lang][key];
+                    }
+                });
+                document.title = translations[lang].page_title;
+            }
+
+            function updateLanguageUI(lang) {
+                htmlEl.lang = lang;
+                document.body.classList.toggle('font-cairo', lang === 'ar');
+                htmlEl.dir = lang === 'ar' ? 'rtl' : 'ltr';
+                
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    const isActive = btn.dataset.langId === lang;
+                    btn.classList.toggle('accent-bg', isActive);
+                    btn.classList.toggle('text-white', isActive);
+                });
+
+                const countrySelect = document.getElementById('country');
+                countrySelect.innerHTML = '';
+                countryOptions[lang].forEach(optionData => {
+                    const option = document.createElement('option');
+                    option.value = optionData.value;
+                    option.textContent = optionData.text;
+                    countrySelect.appendChild(option);
+                });
+            }
+
+            function changeLanguage(lang) {
+                currentLang = lang;
+                updateTexts(lang);
+                updateLanguageUI(lang);
+                localStorage.setItem('preferredLanguage', lang);
+            }
+
+            function applyTheme(isDark) {
+                const darkIcon = document.getElementById('theme-toggle-dark-icon');
+                const lightIcon = document.getElementById('theme-toggle-light-icon');
+                htmlEl.classList.toggle('dark', isDark);
+                if (darkIcon && lightIcon) {
+                    darkIcon.style.display = isDark ? 'none' : 'block';
+                    lightIcon.style.display = isDark ? 'block' : 'none';
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                lucide.createIcons();
+
+                // Gestion du thème
+                const themeToggleBtn = document.getElementById('theme-toggle');
+                const savedTheme = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                applyTheme(savedTheme === 'dark' || (savedTheme === null && prefersDark));
+                
+                themeToggleBtn.addEventListener('click', () => {
+                    const newIsDark = !htmlEl.classList.contains('dark');
+                    applyTheme(newIsDark);
+                    localStorage.setItem('theme', newIsDark ? 'dark' : 'light');
+                });
+
+                // Gestion de la langue
+                const urlParams = new URLSearchParams(window.location.search);
+                const langFromUrl = urlParams.get('lang');
+                const savedLang = localStorage.getItem('preferredLanguage') || 'fr';
+                changeLanguage(langFromUrl || savedLang);
+
+                const langSwitcher = document.getElementById('lang-switcher');
+                langSwitcher.addEventListener('click', (e) => {
+                    const target = e.target.closest('.lang-btn');
+                    if (target?.dataset.langId) {
+                        changeLanguage(target.dataset.langId);
+                    }
+                });
+
+                // Validation du formulaire
+                const form = document.getElementById('project-form');
+                const emailInput = document.getElementById('email');
+                const emailError = document.getElementById('email-error');
+                const validDomains = ['gmail.com', 'outlook.com', 'yahoo.com', 'icloud.com'];
+
+                form.addEventListener('submit', function(e) {
+                    const emailValue = emailInput.value.toLowerCase();
+                    const domain = emailValue.split('@')[1];
+
+                    if (!domain || !validDomains.includes(domain)) {
+                        e.preventDefault();
+                        emailError.classList.remove('hidden');
+                        emailInput.focus();
+                    } else {
+                        emailError.classList.add('hidden');
+                    }
+                });
+
+                // Transitions de page
+                document.querySelectorAll('.page-transition-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const destination = this.getAttribute('href');
+                        document.body.classList.remove('fade-in');
+                        setTimeout(() => window.location.assign(destination), 500);
+                    });
+                });
+                
+                // Fondu d'entrée
+                document.body.classList.add('fade-in');
             });
-        });
+        })();
     </script>
 </body>
 </html>
